@@ -1,0 +1,19 @@
+aid: ptc-thingworx
+url: https://raw.githubusercontent.com/api-evangelist/ptc-thingworx/refs/heads/main/apis.yml
+apis:
+- aid: ptc-thingworx:ptc-thingworx-api
+  name: PTC ThingWorx / Windchill API
+  tags:
+  - Manufacturing
+  - IoT
+  - PDM
+  - PLM
+  - Digital Twin
+  image: https://raw.githubusercontent.com/api-evangelist/ptc-thingworx/refs/heads/main/image.png
+  humanURL: https://developer.thingworx.com/
+  baseURL: https://api.thingworx.example.com
+  properties:
+  - url: https://developer.thingworx.com/
+    type: Documentation
+  description: >-
+    PTC ThingWorx and Windchill provide IoT platform and product data management APIs. ThingWorx APIs enable device connectivity, real-time telemetry, mashup composition, and analytics. Windchill APIs provide PDM/PLM access for CAD data, BOMs, change management, and product lifecycle workflows.

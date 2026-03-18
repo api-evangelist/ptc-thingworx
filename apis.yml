@@ -1,19 +1,69 @@
 aid: ptc-thingworx
 url: https://raw.githubusercontent.com/api-evangelist/ptc-thingworx/refs/heads/main/apis.yml
 apis:
-- aid: ptc-thingworx:ptc-thingworx-api
-  name: PTC ThingWorx / Windchill API
+- aid: ptc-thingworx:thingworx-rest-api
+  name: PTC ThingWorx REST API
   tags:
   - Manufacturing
   - IoT
-  - PDM
-  - PLM
   - Digital Twin
+  - REST
   image: https://raw.githubusercontent.com/api-evangelist/ptc-thingworx/refs/heads/main/image.png
-  humanURL: https://developer.thingworx.com/
+  humanURL: https://docs.ptc.com/r/en-US/ThingWorx-Help/ThingWorx/Help/Composer/Security/ApplicationKeys/ApplicationKeys
+  baseURL: https://api.thingworx.example.com/Thingworx
+  properties:
+  - url: https://docs.ptc.com/
+    type: Documentation
+  - url: https://docs.ptc.com/
+    type: Reference
+  description: >-
+    PTC ThingWorx REST API provides programmatic access to the ThingWorx IoT platform including thing management, property read/write, service execution, event subscription, and mashup data APIs using Application Key or OAuth authentication.
+
+- aid: ptc-thingworx:thingworx-websocket-api
+  name: PTC ThingWorx WebSocket/AlwaysOn API
+  tags:
+  - Manufacturing
+  - IoT
+  - WebSocket
+  - Real-time
+  image: https://raw.githubusercontent.com/api-evangelist/ptc-thingworx/refs/heads/main/image.png
+  humanURL: https://docs.ptc.com/
   baseURL: https://api.thingworx.example.com
   properties:
-  - url: https://developer.thingworx.com/
+  - url: https://docs.ptc.com/
     type: Documentation
   description: >-
-    PTC ThingWorx and Windchill provide IoT platform and product data management APIs. ThingWorx APIs enable device connectivity, real-time telemetry, mashup composition, and analytics. Windchill APIs provide PDM/PLM access for CAD data, BOMs, change management, and product lifecycle workflows.
+    PTC ThingWorx AlwaysOn WebSocket API enables persistent bidirectional connections for industrial edge devices and remote assets, supporting real-time telemetry streaming, command and control, and device lifecycle management.
+
+- aid: ptc-thingworx:windchill-rest-api
+  name: PTC Windchill REST API
+  tags:
+  - Manufacturing
+  - PLM
+  - PDM
+  - CAD
+  - REST
+  image: https://raw.githubusercontent.com/api-evangelist/ptc-thingworx/refs/heads/main/image.png
+  humanURL: https://docs.ptc.com/
+  baseURL: https://api.windchill.example.com
+  properties:
+  - url: https://docs.ptc.com/
+    type: Documentation
+  description: >-
+    PTC Windchill REST API provides product lifecycle management and PDM access for CAD data management, bill of materials, change management, workflow automation, and product lifecycle workflows in manufacturing environments.
+
+common:
+- url: https://docs.ptc.com/
+  type: Portal
+- url: https://docs.ptc.com/
+  type: Documentation
+- url: https://www.ptc.com/en/technologies/iiot/thingworx-platform
+  type: Website
+- url: https://www.ptc.com/en/privacy-policy
+  type: PrivacyPolicy
+- url: https://github.com/ptc-iot-sharing
+  type: GitHubOrganization
+maintainers:
+- name: Kin Lane
+  email: kin@apievangelist.com
+modified: '2026-03-18'

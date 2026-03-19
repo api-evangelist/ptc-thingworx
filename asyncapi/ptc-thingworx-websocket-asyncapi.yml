@@ -1,0 +1,219 @@
+asyncapi: 2.6.0
+info:
+  title: PTC ThingWorx AlwaysOn WebSocket API
+  version: 9.5.0
+  description: >-
+    PTC ThingWorx AlwaysOn WebSocket API enables persistent bidirectional connections
+    for industrial edge devices and remote assets. Supports real-time telemetry
+    streaming, command and control, event notifications, and device lifecycle
+    management over WebSocket transport using the ThingWorx AlwaysOn protocol.
+  contact:
+    name: PTC Support
+    url: https://www.ptc.com/en/support
+  license:
+    name: PTC Software License
+    url: https://www.ptc.com/en/legal-agreements
+
+servers:
+  thingworx-production:
+    url: wss://{host}/Thingworx/WS
+    protocol: wss
+    description: ThingWorx WebSocket endpoint
+    variables:
+      host:
+        default: thingworx.example.com
+
+defaultContentType: application/json
+
+channels:
+  thing/property-update:
+    description: Channel for receiving real-time property value updates from connected things
+    subscribe:
+      operationId: onPropertyUpdate
+      summary: Real-time property value update
+      description: >-
+        Published when a thing property value changes and property change notification
+        is enabled. Delivers the new value with timestamp and quality.
+      tags:
+        - name: Properties
+      message:
+        $ref: '#/components/messages/PropertyUpdateMessage'
+
+  thing/event-fired:
+    description: Channel for receiving real-time event notifications from things
+    subscribe:
+      operationId: onEventFired
+      summary: Thing event notification
+      description: >-
+        Published when a thing fires an event (e.g., alert threshold crossed,
+        state change, fault detected). Contains event name and associated data.
+      tags:
+        - name: Events
+      message:
+        $ref: '#/components/messages/EventFiredMessage'
+
+  thing/alert:
+    description: Channel for receiving alert notifications from things
+    subscribe:
+      operationId: onAlert
+      summary: Thing alert notification
+      description: >-
+        Published when a thing triggers an alert condition based on a property
+        value crossing a configured threshold.
+      tags:
+        - name: Alerts
+      message:
+        $ref: '#/components/messages/AlertMessage'
+
+  device/connect:
+    description: Channel for device connection lifecycle notifications
+    subscribe:
+      operationId: onDeviceConnect
+      summary: Device connected event
+      description: Published when an edge device establishes an AlwaysOn WebSocket connection.
+      tags:
+        - name: Devices
+      message:
+        $ref: '#/components/messages/DeviceConnectMessage'
+
+  device/disconnect:
+    description: Channel for device disconnection lifecycle notifications
+    subscribe:
+      operationId: onDeviceDisconnect
+      summary: Device disconnected event
+      description: Published when an edge device connection is terminated.
+      tags:
+        - name: Devices
+      message:
+        $ref: '#/components/messages/DeviceDisconnectMessage'
+
+components:
+  messages:
+    PropertyUpdateMessage:
+      name: PropertyUpdate
+      title: Property Value Update
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PropertyUpdatePayload'
+
+    EventFiredMessage:
+      name: EventFired
+      title: Thing Event Fired
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/EventFiredPayload'
+
+    AlertMessage:
+      name: Alert
+      title: Thing Alert
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/AlertPayload'
+
+    DeviceConnectMessage:
+      name: DeviceConnect
+      title: Device Connected
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/DeviceConnectionPayload'
+
+    DeviceDisconnectMessage:
+      name: DeviceDisconnect
+      title: Device Disconnected
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/DeviceConnectionPayload'
+
+  schemas:
+    PropertyUpdatePayload:
+      type: object
+      required:
+        - thingName
+        - propertyName
+        - value
+        - timestamp
+      properties:
+        thingName:
+          type: string
+          description: Name of the thing that reported the update
+        propertyName:
+          type: string
+          description: Name of the updated property
+        value:
+          description: New property value
+        timestamp:
+          type: integer
+          format: int64
+          description: Value timestamp in epoch milliseconds (UTC)
+        quality:
+          type: string
+          description: Data quality string (GOOD, BAD, UNCERTAIN)
+          enum: [GOOD, BAD, UNCERTAIN]
+
+    EventFiredPayload:
+      type: object
+      required:
+        - thingName
+        - eventName
+        - timestamp
+      properties:
+        thingName:
+          type: string
+        eventName:
+          type: string
+        timestamp:
+          type: integer
+          format: int64
+        eventData:
+          type: object
+          additionalProperties: true
+          description: Event-specific data fields based on data shape
+
+    AlertPayload:
+      type: object
+      required:
+        - thingName
+        - propertyName
+        - alertName
+        - alertType
+        - timestamp
+      properties:
+        thingName:
+          type: string
+        propertyName:
+          type: string
+        alertName:
+          type: string
+        alertType:
+          type: string
+          enum: [Above, Below, Equal, NotEqual, AboveOrEqual, BelowOrEqual]
+        isAcknowledged:
+          type: boolean
+        isCleared:
+          type: boolean
+        timestamp:
+          type: integer
+          format: int64
+        value:
+          description: Property value when alert triggered
+        threshold:
+          description: Configured threshold value
+
+    DeviceConnectionPayload:
+      type: object
+      required:
+        - thingName
+        - timestamp
+      properties:
+        thingName:
+          type: string
+          description: Name of the connected/disconnected thing
+        deviceId:
+          type: string
+          description: Physical device identifier
+        timestamp:
+          type: integer
+          format: int64
+        ipAddress:
+          type: string
+          nullable: true

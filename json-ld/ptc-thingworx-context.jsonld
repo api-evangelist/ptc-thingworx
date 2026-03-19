@@ -1,0 +1,106 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "ssn": "http://www.w3.org/ns/ssn/",
+    "sosa": "http://www.w3.org/ns/sosa/",
+    "tw": "https://docs.ptc.com/vocab/thingworx#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "Thing": {
+      "@id": "ssn:System",
+      "@type": "@id"
+    },
+    "name": {
+      "@id": "schema:name"
+    },
+    "description": {
+      "@id": "schema:description"
+    },
+    "thingTemplate": {
+      "@id": "tw:thingTemplate"
+    },
+    "thingShape": {
+      "@id": "tw:thingShape"
+    },
+    "identifier": {
+      "@id": "schema:identifier"
+    },
+    "isEnabled": {
+      "@id": "schema:actionStatus",
+      "@type": "xsd:boolean"
+    },
+    "tags": {
+      "@id": "schema:keywords"
+    },
+    "projectName": {
+      "@id": "schema:isPartOf"
+    },
+    "lastModifiedDate": {
+      "@id": "schema:dateModified",
+      "@type": "xsd:long"
+    },
+
+    "PropertyValue": {
+      "@id": "sosa:Observation",
+      "@type": "@id"
+    },
+    "thingName": {
+      "@id": "sosa:featureOfInterest"
+    },
+    "propertyName": {
+      "@id": "sosa:observedProperty"
+    },
+    "value": {
+      "@id": "sosa:hasSimpleResult"
+    },
+    "timestamp": {
+      "@id": "sosa:resultTime",
+      "@type": "xsd:long"
+    },
+    "quality": {
+      "@id": "tw:dataQuality"
+    },
+
+    "EventFired": {
+      "@id": "schema:Event",
+      "@type": "@id"
+    },
+    "eventName": {
+      "@id": "schema:name"
+    },
+    "eventData": {
+      "@id": "schema:additionalProperty"
+    },
+
+    "Alert": {
+      "@id": "schema:AlarmAction",
+      "@type": "@id"
+    },
+    "alertName": {
+      "@id": "schema:name"
+    },
+    "alertType": {
+      "@id": "tw:alertType"
+    },
+    "isAcknowledged": {
+      "@id": "tw:isAcknowledged",
+      "@type": "xsd:boolean"
+    },
+    "isCleared": {
+      "@id": "tw:isCleared",
+      "@type": "xsd:boolean"
+    },
+
+    "DataShape": {
+      "@id": "schema:PropertyValue",
+      "@type": "@id"
+    },
+    "fieldDefinitions": {
+      "@id": "tw:fieldDefinitions"
+    },
+    "baseType": {
+      "@id": "tw:baseType"
+    }
+  }
+}

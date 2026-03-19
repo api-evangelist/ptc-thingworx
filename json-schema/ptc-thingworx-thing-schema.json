@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/ptc-thingworx/json-schema/ptc-thingworx-thing-schema.json",
+  "title": "PTC ThingWorx Thing",
+  "description": "Schema for a PTC ThingWorx thing (digital twin instance), representing a connected industrial asset or device.",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Unique thing name in the ThingWorx platform"
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable thing description"
+    },
+    "thingTemplate": {
+      "type": "string",
+      "description": "Parent thing template that defines property/service/event shape"
+    },
+    "thingShape": {
+      "type": "string",
+      "description": "Applied thing shape for additional properties or services"
+    },
+    "tags": {
+      "type": "array",
+      "description": "Model tag vocabulary entries for classification",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "vocabulary": { "type": "string" }
+        }
+      }
+    },
+    "isEnabled": {
+      "type": "boolean",
+      "description": "Whether the thing is enabled and able to receive data"
+    },
+    "isSystemObject": {
+      "type": "boolean",
+      "description": "True if this is a built-in ThingWorx system object"
+    },
+    "identifier": {
+      "type": "string",
+      "description": "External identifier for mapping to physical device or asset"
+    },
+    "projectName": {
+      "type": "string",
+      "description": "ThingWorx project the thing belongs to"
+    },
+    "lastModifiedDate": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Last modification timestamp (epoch milliseconds UTC)"
+    }
+  },
+  "required": ["name", "thingTemplate"],
+  "examples": [
+    {
+      "name": "CNC_Machine_Line3_Station7",
+      "description": "CNC Machining Center - Production Line 3, Station 7",
+      "thingTemplate": "GenericThingTemplate",
+      "thingShape": "CNCMachineShape",
+      "tags": [
+        { "name": "CNC", "vocabulary": "MachineType" },
+        { "name": "Line3", "vocabulary": "ProductionLine" }
+      ],
+      "isEnabled": true,
+      "isSystemObject": false,
+      "identifier": "ASSET-CNC-LINE3-007",
+      "projectName": "SmartFactoryProject"
+    }
+  ]
+}

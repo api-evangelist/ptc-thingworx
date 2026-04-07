@@ -1,18 +1,15 @@
 aid: ptc-thingworx
-url: 
-  https://raw.githubusercontent.com/api-evangelist/ptc-thingworx/refs/heads/main/apis.yml
+url: https://raw.githubusercontent.com/api-evangelist/ptc-thingworx/refs/heads/main/apis.yml
 apis:
   - aid: ptc-thingworx:thingworx-rest-api
     name: PTC ThingWorx REST API
     tags:
-      - Manufacturing
-      - IoT
       - Digital Twin
+      - IoT
+      - Manufacturing
       - REST
-    image: 
-      https://raw.githubusercontent.com/api-evangelist/ptc-thingworx/refs/heads/main/image.png
-    humanURL: 
-      https://docs.ptc.com/r/en-US/ThingWorx-Help/ThingWorx/Help/Composer/Security/ApplicationKeys/ApplicationKeys
+    image: https://raw.githubusercontent.com/api-evangelist/ptc-thingworx/refs/heads/main/image.png
+    humanURL: https://docs.ptc.com/r/en-US/ThingWorx-Help/ThingWorx/Help/Composer/Security/ApplicationKeys/ApplicationKeys
     baseURL: https://api.thingworx.example.com/Thingworx
     properties:
       - url: https://docs.ptc.com/
@@ -29,12 +26,11 @@ apis:
   - aid: ptc-thingworx:thingworx-websocket-api
     name: PTC ThingWorx WebSocket/AlwaysOn API
     tags:
-      - Manufacturing
       - IoT
+      - Manufacturing
+      - Real-Time
       - WebSocket
-      - Real-time
-    image: 
-      https://raw.githubusercontent.com/api-evangelist/ptc-thingworx/refs/heads/main/image.png
+    image: https://raw.githubusercontent.com/api-evangelist/ptc-thingworx/refs/heads/main/image.png
     humanURL: https://docs.ptc.com/
     baseURL: https://api.thingworx.example.com
     properties:
@@ -50,13 +46,12 @@ apis:
   - aid: ptc-thingworx:windchill-rest-api
     name: PTC Windchill REST API
     tags:
-      - Manufacturing
-      - PLM
-      - PDM
       - CAD
+      - Manufacturing
+      - PDM
+      - PLM
       - REST
-    image: 
-      https://raw.githubusercontent.com/api-evangelist/ptc-thingworx/refs/heads/main/image.png
+    image: https://raw.githubusercontent.com/api-evangelist/ptc-thingworx/refs/heads/main/image.png
     humanURL: https://docs.ptc.com/
     baseURL: https://api.windchill.example.com
     properties:

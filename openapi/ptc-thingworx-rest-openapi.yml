@@ -27,18 +27,16 @@ security:
   - oauth2: []
 
 tags:
-  - name: Things
-    description: Thing (digital twin) management
-  - name: Properties
-    description: Thing property read/write
-  - name: Services
-    description: Service execution on things
-  - name: Events
-    description: Event management and subscription
-  - name: ThingTemplates
-    description: Thing template management
   - name: DataShapes
     description: Data shape definitions
+  - name: Events
+    description: Event management and subscription
+  - name: Properties
+    description: Thing property read/write
+  - name: Things
+    description: Thing (digital twin) management
+  - name: ThingTemplates
+    description: Thing template management
   - name: ValueStreams
     description: Time-series property streams
 
@@ -207,8 +205,7 @@ paths:
       operationId: executeService
       summary: Execute a thing service
       description: Executes a service (method) on a thing and returns the result.
-      tags:
-        - Services
+      tags: []
       parameters:
         - $ref: '#/components/parameters/ThingName'
         - name: serviceName

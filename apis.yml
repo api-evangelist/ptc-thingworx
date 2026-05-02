@@ -84,7 +84,7 @@ common:
 maintainers:
   - name: Kin Lane
     email: kin@apievangelist.com
-modified: '2026-03-18'
+modified: '2026-04-28'
 description: >-
   PTC ThingWorx is an industrial Internet of Things platform that enables companies
   to rapidly develop and deploy smart, connected solutions for industrial environments.

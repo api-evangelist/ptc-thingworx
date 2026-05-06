@@ -1,0 +1,502 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: PTC ThingWorx REST API
+  description: PTC ThingWorx REST API provides programmatic access to the ThingWorx IoT platform including thing management,
+    property read/write, service execution, event subscription, and mashup data APIs using Application Key or OAuth authentication.
+    ThingWorx is PTC's industrial IoT platform for digital twin and connected factory applications.
+  tags:
+  - Ptc
+  - Thingworx
+  - API
+  created: '2026-05-06'
+  modified: '2026-05-06'
+capability:
+  consumes:
+  - type: http
+    namespace: ptc-thingworx
+    baseUri: https://thingworx.example.com/Thingworx
+    description: PTC ThingWorx REST API HTTP API.
+    authentication:
+      type: apikey
+      in: header
+      name: appKey
+      value: '{{PTC_THINGWORX_TOKEN}}'
+    resources:
+    - name: things
+      path: /Things
+      operations:
+      - name: listthings
+        method: GET
+        description: List things
+        inputParameters:
+        - name: maxItems
+          in: query
+          type: integer
+          description: Maximum number of things to return
+        - name: nameMask
+          in: query
+          type: string
+          description: Name filter using % as wildcard
+        - name: tags
+          in: query
+          type: string
+          description: Tag-based filter
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: things-thingname
+      path: /Things/{thingName}
+      operations:
+      - name: getthing
+        method: GET
+        description: Get a thing
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: things-thingname-properties
+      path: /Things/{thingName}/Properties
+      operations:
+      - name: getthingproperties
+        method: GET
+        description: Get all thing properties
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: things-thingname-properties-propertyname
+      path: /Things/{thingName}/Properties/{propertyName}
+      operations:
+      - name: getthingproperty
+        method: GET
+        description: Get a thing property
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: setthingproperty
+        method: PUT
+        description: Set a thing property
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: things-thingname-properties-propertyname-querypr
+      path: /Things/{thingName}/Properties/{propertyName}/QueryPropertyHistory
+      operations:
+      - name: querypropertyhistory
+        method: GET
+        description: Query property history
+        inputParameters:
+        - name: startDate
+          in: query
+          type: integer
+          description: Start of time range (epoch milliseconds)
+        - name: endDate
+          in: query
+          type: integer
+          description: End of time range (epoch milliseconds)
+        - name: maxItems
+          in: query
+          type: integer
+        - name: query
+          in: query
+          type: string
+          description: JSON query expression for filtering
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: things-thingname-services-servicename
+      path: /Things/{thingName}/Services/{serviceName}
+      operations:
+      - name: executeservice
+        method: POST
+        description: Execute a thing service
+        inputParameters:
+        - name: serviceName
+          in: path
+          type: string
+          required: true
+          description: Service name
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: things-thingname-events
+      path: /Things/{thingName}/Events
+      operations:
+      - name: getthingevents
+        method: GET
+        description: List thing events
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: things-thingname-eventhistory
+      path: /Things/{thingName}/EventHistory
+      operations:
+      - name: geteventhistory
+        method: GET
+        description: Query event history
+        inputParameters:
+        - name: startDate
+          in: query
+          type: integer
+        - name: endDate
+          in: query
+          type: integer
+        - name: maxItems
+          in: query
+          type: integer
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: thingtemplates
+      path: /ThingTemplates
+      operations:
+      - name: listthingtemplates
+        method: GET
+        description: List thing templates
+        inputParameters:
+        - name: maxItems
+          in: query
+          type: integer
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: datashapes-datashapename
+      path: /DataShapes/{dataShapeName}
+      operations:
+      - name: getdatashape
+        method: GET
+        description: Get a data shape
+        inputParameters:
+        - name: dataShapeName
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    port: 8080
+    namespace: ptc-thingworx-rest
+    description: REST adapter for PTC ThingWorx REST API.
+    resources:
+    - path: /Things
+      name: listthings
+      operations:
+      - method: GET
+        name: listthings
+        description: List things
+        call: ptc-thingworx.listthings
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /Things/{thingName}
+      name: getthing
+      operations:
+      - method: GET
+        name: getthing
+        description: Get a thing
+        call: ptc-thingworx.getthing
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /Things/{thingName}/Properties
+      name: getthingproperties
+      operations:
+      - method: GET
+        name: getthingproperties
+        description: Get all thing properties
+        call: ptc-thingworx.getthingproperties
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /Things/{thingName}/Properties/{propertyName}
+      name: getthingproperty
+      operations:
+      - method: GET
+        name: getthingproperty
+        description: Get a thing property
+        call: ptc-thingworx.getthingproperty
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /Things/{thingName}/Properties/{propertyName}
+      name: setthingproperty
+      operations:
+      - method: PUT
+        name: setthingproperty
+        description: Set a thing property
+        call: ptc-thingworx.setthingproperty
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /Things/{thingName}/Properties/{propertyName}/QueryPropertyHistory
+      name: querypropertyhistory
+      operations:
+      - method: GET
+        name: querypropertyhistory
+        description: Query property history
+        call: ptc-thingworx.querypropertyhistory
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /Things/{thingName}/Services/{serviceName}
+      name: executeservice
+      operations:
+      - method: POST
+        name: executeservice
+        description: Execute a thing service
+        call: ptc-thingworx.executeservice
+        with:
+          serviceName: rest.serviceName
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /Things/{thingName}/Events
+      name: getthingevents
+      operations:
+      - method: GET
+        name: getthingevents
+        description: List thing events
+        call: ptc-thingworx.getthingevents
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /Things/{thingName}/EventHistory
+      name: geteventhistory
+      operations:
+      - method: GET
+        name: geteventhistory
+        description: Query event history
+        call: ptc-thingworx.geteventhistory
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /ThingTemplates
+      name: listthingtemplates
+      operations:
+      - method: GET
+        name: listthingtemplates
+        description: List thing templates
+        call: ptc-thingworx.listthingtemplates
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /DataShapes/{dataShapeName}
+      name: getdatashape
+      operations:
+      - method: GET
+        name: getdatashape
+        description: Get a data shape
+        call: ptc-thingworx.getdatashape
+        with:
+          dataShapeName: rest.dataShapeName
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    port: 9090
+    namespace: ptc-thingworx-mcp
+    transport: http
+    description: MCP adapter for PTC ThingWorx REST API for AI agent use.
+    tools:
+    - name: listthings
+      description: List things
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ptc-thingworx.listthings
+      with:
+        maxItems: tools.maxItems
+        nameMask: tools.nameMask
+        tags: tools.tags
+      inputParameters:
+      - name: maxItems
+        type: integer
+        description: Maximum number of things to return
+      - name: nameMask
+        type: string
+        description: Name filter using % as wildcard
+      - name: tags
+        type: string
+        description: Tag-based filter
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getthing
+      description: Get a thing
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ptc-thingworx.getthing
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getthingproperties
+      description: Get all thing properties
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ptc-thingworx.getthingproperties
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getthingproperty
+      description: Get a thing property
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ptc-thingworx.getthingproperty
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: setthingproperty
+      description: Set a thing property
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: ptc-thingworx.setthingproperty
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: querypropertyhistory
+      description: Query property history
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ptc-thingworx.querypropertyhistory
+      with:
+        startDate: tools.startDate
+        endDate: tools.endDate
+        maxItems: tools.maxItems
+        query: tools.query
+      inputParameters:
+      - name: startDate
+        type: integer
+        description: Start of time range (epoch milliseconds)
+      - name: endDate
+        type: integer
+        description: End of time range (epoch milliseconds)
+      - name: maxItems
+        type: integer
+        description: maxItems
+      - name: query
+        type: string
+        description: JSON query expression for filtering
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: executeservice
+      description: Execute a thing service
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: ptc-thingworx.executeservice
+      with:
+        serviceName: tools.serviceName
+      inputParameters:
+      - name: serviceName
+        type: string
+        description: Service name
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getthingevents
+      description: List thing events
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ptc-thingworx.getthingevents
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: geteventhistory
+      description: Query event history
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ptc-thingworx.geteventhistory
+      with:
+        startDate: tools.startDate
+        endDate: tools.endDate
+        maxItems: tools.maxItems
+      inputParameters:
+      - name: startDate
+        type: integer
+        description: startDate
+      - name: endDate
+        type: integer
+        description: endDate
+      - name: maxItems
+        type: integer
+        description: maxItems
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listthingtemplates
+      description: List thing templates
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ptc-thingworx.listthingtemplates
+      with:
+        maxItems: tools.maxItems
+      inputParameters:
+      - name: maxItems
+        type: integer
+        description: maxItems
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getdatashape
+      description: Get a data shape
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ptc-thingworx.getdatashape
+      with:
+        dataShapeName: tools.dataShapeName
+      inputParameters:
+      - name: dataShapeName
+        type: string
+        description: dataShapeName
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+binds:
+- namespace: env
+  keys:
+    PTC_THINGWORX_TOKEN: PTC_THINGWORX_TOKEN

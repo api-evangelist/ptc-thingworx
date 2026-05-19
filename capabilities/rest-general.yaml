@@ -1,0 +1,86 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: PTC ThingWorx REST API
+  description: 'PTC ThingWorx REST API. 1 operations. Lead operation: Execute a thing service. Self-contained Naftiko capability
+    covering one Ptc Thingworx business surface.'
+  tags:
+  - Ptc Thingworx
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PTC_THINGWORX_API_KEY: PTC_THINGWORX_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-general
+    baseUri: https://{host}/Thingworx
+    description: PTC ThingWorx REST API business capability. Self-contained, no shared references.
+    resources:
+    - name: Things-thingName-Services-serviceName
+      path: /Things/{thingName}/Services/{serviceName}
+      operations:
+      - name: executeservice
+        method: POST
+        description: Execute a thing service
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: serviceName
+          in: path
+          type: string
+          description: Service name
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    authentication:
+      type: bearer
+      token: '{{env.PTC_THINGWORX_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: rest-general-rest
+    port: 8080
+    description: REST adapter for PTC ThingWorx REST API. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/things/{thingname}/services/{servicename}
+      name: things-thingname-services-servicename
+      description: REST surface for Things-thingName-Services-serviceName.
+      operations:
+      - method: POST
+        name: executeservice
+        description: Execute a thing service
+        call: rest-general.executeservice
+        with:
+          serviceName: rest.serviceName
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-general-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for PTC ThingWorx REST API. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: execute-thing-service
+      description: Execute a thing service
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-general.executeservice
+      with:
+        serviceName: tools.serviceName
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

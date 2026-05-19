@@ -1,0 +1,137 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: PTC ThingWorx REST API — Properties
+  description: 'PTC ThingWorx REST API — Properties. 3 operations. Lead operation: Get all thing properties. Self-contained
+    Naftiko capability covering one Ptc Thingworx business surface.'
+  tags:
+  - Ptc Thingworx
+  - Properties
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PTC_THINGWORX_API_KEY: PTC_THINGWORX_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-properties
+    baseUri: https://{host}/Thingworx
+    description: PTC ThingWorx REST API — Properties business capability. Self-contained, no shared references.
+    resources:
+    - name: Things-thingName-Properties
+      path: /Things/{thingName}/Properties
+      operations:
+      - name: getthingproperties
+        method: GET
+        description: Get all thing properties
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: Things-thingName-Properties-propertyName
+      path: /Things/{thingName}/Properties/{propertyName}
+      operations:
+      - name: getthingproperty
+        method: GET
+        description: Get a thing property
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: setthingproperty
+        method: PUT
+        description: Set a thing property
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.PTC_THINGWORX_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: rest-properties-rest
+    port: 8080
+    description: REST adapter for PTC ThingWorx REST API — Properties. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/things/{thingname}/properties
+      name: things-thingname-properties
+      description: REST surface for Things-thingName-Properties.
+      operations:
+      - method: GET
+        name: getthingproperties
+        description: Get all thing properties
+        call: rest-properties.getthingproperties
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/things/{thingname}/properties/{propertyname}
+      name: things-thingname-properties-propertyname
+      description: REST surface for Things-thingName-Properties-propertyName.
+      operations:
+      - method: GET
+        name: getthingproperty
+        description: Get a thing property
+        call: rest-properties.getthingproperty
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: setthingproperty
+        description: Set a thing property
+        call: rest-properties.setthingproperty
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-properties-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for PTC ThingWorx REST API — Properties. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: get-all-thing-properties
+      description: Get all thing properties
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-properties.getthingproperties
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-thing-property
+      description: Get a thing property
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-properties.getthingproperty
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: set-thing-property
+      description: Set a thing property
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: rest-properties.setthingproperty
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,96 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: PTC ThingWorx REST API — ValueStreams
+  description: 'PTC ThingWorx REST API — ValueStreams. 1 operations. Lead operation: Query property history. Self-contained
+    Naftiko capability covering one Ptc Thingworx business surface.'
+  tags:
+  - Ptc Thingworx
+  - ValueStreams
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PTC_THINGWORX_API_KEY: PTC_THINGWORX_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-valuestreams
+    baseUri: https://{host}/Thingworx
+    description: PTC ThingWorx REST API — ValueStreams business capability. Self-contained, no shared references.
+    resources:
+    - name: Things-thingName-Properties-propertyName-QueryPropertyHistory
+      path: /Things/{thingName}/Properties/{propertyName}/QueryPropertyHistory
+      operations:
+      - name: querypropertyhistory
+        method: GET
+        description: Query property history
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: startDate
+          in: query
+          type: integer
+          description: Start of time range (epoch milliseconds)
+        - name: endDate
+          in: query
+          type: integer
+          description: End of time range (epoch milliseconds)
+        - name: maxItems
+          in: query
+          type: integer
+        - name: query
+          in: query
+          type: string
+          description: JSON query expression for filtering
+    authentication:
+      type: bearer
+      token: '{{env.PTC_THINGWORX_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: rest-valuestreams-rest
+    port: 8080
+    description: REST adapter for PTC ThingWorx REST API — ValueStreams. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/things/{thingname}/properties/{propertyname}/querypropertyhistory
+      name: things-thingname-properties-propertyname-querypropertyhistory
+      description: REST surface for Things-thingName-Properties-propertyName-QueryPropertyHistory.
+      operations:
+      - method: GET
+        name: querypropertyhistory
+        description: Query property history
+        call: rest-valuestreams.querypropertyhistory
+        with:
+          startDate: rest.startDate
+          endDate: rest.endDate
+          maxItems: rest.maxItems
+          query: rest.query
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-valuestreams-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for PTC ThingWorx REST API — ValueStreams. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: query-property-history
+      description: Query property history
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-valuestreams.querypropertyhistory
+      with:
+        startDate: tools.startDate
+        endDate: tools.endDate
+        maxItems: tools.maxItems
+        query: tools.query
+      outputParameters:
+      - type: object
+        mapping: $.

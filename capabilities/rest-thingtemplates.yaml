@@ -1,0 +1,78 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: PTC ThingWorx REST API — ThingTemplates
+  description: 'PTC ThingWorx REST API — ThingTemplates. 1 operations. Lead operation: List thing templates. Self-contained
+    Naftiko capability covering one Ptc Thingworx business surface.'
+  tags:
+  - Ptc Thingworx
+  - ThingTemplates
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PTC_THINGWORX_API_KEY: PTC_THINGWORX_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-thingtemplates
+    baseUri: https://{host}/Thingworx
+    description: PTC ThingWorx REST API — ThingTemplates business capability. Self-contained, no shared references.
+    resources:
+    - name: ThingTemplates
+      path: /ThingTemplates
+      operations:
+      - name: listthingtemplates
+        method: GET
+        description: List thing templates
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: maxItems
+          in: query
+          type: integer
+    authentication:
+      type: bearer
+      token: '{{env.PTC_THINGWORX_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: rest-thingtemplates-rest
+    port: 8080
+    description: REST adapter for PTC ThingWorx REST API — ThingTemplates. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/thingtemplates
+      name: thingtemplates
+      description: REST surface for ThingTemplates.
+      operations:
+      - method: GET
+        name: listthingtemplates
+        description: List thing templates
+        call: rest-thingtemplates.listthingtemplates
+        with:
+          maxItems: rest.maxItems
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-thingtemplates-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for PTC ThingWorx REST API — ThingTemplates. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-thing-templates
+      description: List thing templates
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-thingtemplates.listthingtemplates
+      with:
+        maxItems: tools.maxItems
+      outputParameters:
+      - type: object
+        mapping: $.

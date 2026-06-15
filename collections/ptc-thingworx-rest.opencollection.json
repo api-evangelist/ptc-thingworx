@@ -1,0 +1,363 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PTC ThingWorx REST API",
+    "version": "9.5.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "appKey",
+      "value": "{{appKey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Things",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List things",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/Thingworx/Things",
+            "params": [
+              {
+                "name": "maxItems",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of things to return"
+              },
+              {
+                "name": "nameMask",
+                "value": "",
+                "type": "query",
+                "description": "Name filter using % as wildcard"
+              },
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query",
+                "description": "Tag-based filter"
+              }
+            ]
+          },
+          "docs": "Returns all things accessible to the authenticated user, with optional filtering."
+        },
+        {
+          "info": {
+            "name": "Get a thing",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/Thingworx/Things/:thingName",
+            "params": [
+              {
+                "name": "thingName",
+                "value": "",
+                "type": "path",
+                "description": "ThingWorx thing name"
+              }
+            ]
+          },
+          "docs": "Returns metadata and configuration for a specific thing (digital twin)."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Properties",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all thing properties",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/Thingworx/Things/:thingName/Properties",
+            "params": [
+              {
+                "name": "thingName",
+                "value": "",
+                "type": "path",
+                "description": "ThingWorx thing name"
+              }
+            ]
+          },
+          "docs": "Returns the current values of all properties for a thing."
+        },
+        {
+          "info": {
+            "name": "Get a thing property",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/Thingworx/Things/:thingName/Properties/:propertyName",
+            "params": [
+              {
+                "name": "thingName",
+                "value": "",
+                "type": "path",
+                "description": "ThingWorx thing name"
+              },
+              {
+                "name": "propertyName",
+                "value": "",
+                "type": "path",
+                "description": "ThingWorx property name"
+              }
+            ]
+          },
+          "docs": "Returns the current value of a specific thing property."
+        },
+        {
+          "info": {
+            "name": "Set a thing property",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}/Thingworx/Things/:thingName/Properties/:propertyName",
+            "params": [
+              {
+                "name": "thingName",
+                "value": "",
+                "type": "path",
+                "description": "ThingWorx thing name"
+              },
+              {
+                "name": "propertyName",
+                "value": "",
+                "type": "path",
+                "description": "ThingWorx property name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sets the value of a writable property on a thing."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "ValueStreams",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Query property history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/Thingworx/Things/:thingName/Properties/:propertyName/QueryPropertyHistory",
+            "params": [
+              {
+                "name": "thingName",
+                "value": "",
+                "type": "path",
+                "description": "ThingWorx thing name"
+              },
+              {
+                "name": "propertyName",
+                "value": "",
+                "type": "path",
+                "description": "ThingWorx property name"
+              },
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query",
+                "description": "Start of time range (epoch milliseconds)"
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "End of time range (epoch milliseconds)"
+              },
+              {
+                "name": "maxItems",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "JSON query expression for filtering"
+              }
+            ]
+          },
+          "docs": "Returns the time-series history of a property value from the value stream."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Default",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Execute a thing service",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{host}/Thingworx/Things/:thingName/Services/:serviceName",
+            "params": [
+              {
+                "name": "thingName",
+                "value": "",
+                "type": "path",
+                "description": "ThingWorx thing name"
+              },
+              {
+                "name": "serviceName",
+                "value": "",
+                "type": "path",
+                "description": "Service name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Executes a service (method) on a thing and returns the result."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List thing events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/Thingworx/Things/:thingName/Events",
+            "params": [
+              {
+                "name": "thingName",
+                "value": "",
+                "type": "path",
+                "description": "ThingWorx thing name"
+              }
+            ]
+          },
+          "docs": "Returns event definitions configured on a thing."
+        },
+        {
+          "info": {
+            "name": "Query event history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/Thingworx/Things/:thingName/EventHistory",
+            "params": [
+              {
+                "name": "thingName",
+                "value": "",
+                "type": "path",
+                "description": "ThingWorx thing name"
+              },
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "maxItems",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns historical events fired by a thing within a time range."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "ThingTemplates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List thing templates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/Thingworx/ThingTemplates",
+            "params": [
+              {
+                "name": "maxItems",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns all thing templates which define the shape (properties, services, events) of things."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "DataShapes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a data shape",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/Thingworx/DataShapes/:dataShapeName",
+            "params": [
+              {
+                "name": "dataShapeName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the field definitions of a ThingWorx data shape."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

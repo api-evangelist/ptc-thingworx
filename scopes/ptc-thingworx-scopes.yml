@@ -1,0 +1,17 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/ptc-thingworx-rest-openapi.yml
+schemes:
+- name: oauth2
+  source: openapi/ptc-thingworx-rest-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://thingworx.example.com/oauth/authorize
+    tokenUrl: https://thingworx.example.com/oauth/token
+scopes:
+- scope: THINGWORX
+  description: Access ThingWorx REST API
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/ptc-thingworx-rest-openapi.yml

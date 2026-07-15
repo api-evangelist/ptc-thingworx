@@ -58,6 +58,8 @@ apis:
       PTC Windchill REST API provides product lifecycle management and PDM access for CAD data management, bill of
       materials, change management, workflow automation, and product lifecycle workflows in manufacturing environments.
 common:
+  - type: AgenticAccess
+    url: agentic-access/ptc-thingworx-agentic-access.yml
   - type: DomainSecurity
     url: security/ptc-thingworx-domain-security.yml
   - type: Authentication

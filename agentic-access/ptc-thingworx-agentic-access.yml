@@ -1,0 +1,138 @@
+generated: '2026-07-15'
+method: generated
+source: openapi/ptc-thingworx-rest-openapi.yml
+description: Recommended x-agentic-access execution contracts, classified heuristically from
+  the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
+  audience per deployment. See research/curity/agentic-governance/.
+summary:
+  operations: 11
+  by_action_class:
+    connected: 9
+    acting: 2
+  by_consequence:
+    read: 9
+    write: 2
+  human_in_the_loop_required: 0
+operations:
+- path: /Things
+  method: get
+  operationId: listThings
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /Things/{thingName}
+  method: get
+  operationId: getThing
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /Things/{thingName}/Properties
+  method: get
+  operationId: getThingProperties
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /Things/{thingName}/Properties/{propertyName}
+  method: get
+  operationId: getThingProperty
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /Things/{thingName}/Properties/{propertyName}
+  method: put
+  operationId: setThingProperty
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /Things/{thingName}/Properties/{propertyName}/QueryPropertyHistory
+  method: get
+  operationId: queryPropertyHistory
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /Things/{thingName}/Services/{serviceName}
+  method: post
+  operationId: executeService
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /Things/{thingName}/Events
+  method: get
+  operationId: getThingEvents
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /Things/{thingName}/EventHistory
+  method: get
+  operationId: getEventHistory
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /ThingTemplates
+  method: get
+  operationId: listThingTemplates
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /DataShapes/{dataShapeName}
+  method: get
+  operationId: getDataShape
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none

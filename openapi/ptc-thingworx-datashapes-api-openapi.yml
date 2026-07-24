@@ -1,0 +1,115 @@
+openapi: 3.1.0
+info:
+  title: PTC ThingWorx REST DataShapes API
+  description: PTC ThingWorx REST API provides programmatic access to the ThingWorx IoT platform including thing management, property read/write, service execution, event subscription, and mashup data APIs using Application Key or OAuth authentication. ThingWorx is PTC's industrial IoT platform for digital twin and connected factory applications.
+  version: 9.5.0
+  contact:
+    name: PTC Support
+    url: https://www.ptc.com/en/support
+  license:
+    name: PTC Software License
+    url: https://www.ptc.com/en/legal-agreements
+servers:
+- url: https://{host}/Thingworx
+  description: ThingWorx REST API
+  variables:
+    host:
+      default: thingworx.example.com
+      description: ThingWorx server hostname
+security:
+- appKey: []
+- oauth2: []
+tags:
+- name: DataShapes
+  description: Data shape definitions
+paths:
+  /DataShapes/{dataShapeName}:
+    get:
+      operationId: getDataShape
+      summary: Get a data shape
+      description: Returns the field definitions of a ThingWorx data shape.
+      tags:
+      - DataShapes
+      parameters:
+      - name: dataShapeName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Data shape definition
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataShape'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    FieldDefinition:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        baseType:
+          type: string
+          enum:
+          - STRING
+          - INTEGER
+          - LONG
+          - NUMBER
+          - BOOLEAN
+          - DATETIME
+          - JSON
+          - INFOTABLE
+          - THINGNAME
+          - LOCATION
+        ordinal:
+          type: integer
+        isPrimaryKey:
+          type: boolean
+    Error:
+      type: object
+      properties:
+        Message:
+          type: string
+        Thread:
+          type: string
+        Code:
+          type: integer
+    DataShape:
+      type: object
+      description: A ThingWorx data shape definition
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        fieldDefinitions:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/FieldDefinition'
+  responses:
+    NotFound:
+      description: Thing, property, or service not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    appKey:
+      type: apiKey
+      in: header
+      name: appKey
+      description: ThingWorx Application Key for authentication
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://thingworx.example.com/oauth/authorize
+          tokenUrl: https://thingworx.example.com/oauth/token
+          scopes:
+            THINGWORX: Access ThingWorx REST API

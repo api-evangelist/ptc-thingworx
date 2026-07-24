@@ -1,0 +1,258 @@
+openapi: 3.1.0
+info:
+  title: PTC ThingWorx REST DataShapes Things API
+  description: PTC ThingWorx REST API provides programmatic access to the ThingWorx IoT platform including thing management, property read/write, service execution, event subscription, and mashup data APIs using Application Key or OAuth authentication. ThingWorx is PTC's industrial IoT platform for digital twin and connected factory applications.
+  version: 9.5.0
+  contact:
+    name: PTC Support
+    url: https://www.ptc.com/en/support
+  license:
+    name: PTC Software License
+    url: https://www.ptc.com/en/legal-agreements
+servers:
+- url: https://{host}/Thingworx
+  description: ThingWorx REST API
+  variables:
+    host:
+      default: thingworx.example.com
+      description: ThingWorx server hostname
+security:
+- appKey: []
+- oauth2: []
+tags:
+- name: Things
+  description: Thing (digital twin) management
+paths:
+  /Things:
+    get:
+      operationId: listThings
+      summary: List things
+      description: Returns all things accessible to the authenticated user, with optional filtering.
+      tags:
+      - Things
+      parameters:
+      - name: maxItems
+        in: query
+        description: Maximum number of things to return
+        schema:
+          type: integer
+          default: 500
+          maximum: 5000
+      - name: nameMask
+        in: query
+        description: Name filter using % as wildcard
+        schema:
+          type: string
+      - name: tags
+        in: query
+        description: Tag-based filter
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Thing list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InfoTable'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /Things/{thingName}:
+    get:
+      operationId: getThing
+      summary: Get a thing
+      description: Returns metadata and configuration for a specific thing (digital twin).
+      tags:
+      - Things
+      parameters:
+      - $ref: '#/components/parameters/ThingName'
+      responses:
+        '200':
+          description: Thing metadata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Thing'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Things/{thingName}/Services/{serviceName}:
+    post:
+      operationId: executeService
+      summary: Execute a thing service
+      description: Executes a service (method) on a thing and returns the result.
+      tags:
+      - Things
+      parameters:
+      - $ref: '#/components/parameters/ThingName'
+      - name: serviceName
+        in: path
+        required: true
+        description: Service name
+        schema:
+          type: string
+      requestBody:
+        description: Service input parameters as key-value pairs
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Service execution result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceResult'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+components:
+  schemas:
+    Thing:
+      type: object
+      description: A ThingWorx thing (digital twin instance)
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        thingTemplate:
+          type: string
+          description: Parent thing template name
+        thingShape:
+          type: string
+          description: Applied thing shape name
+        tags:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              vocabulary:
+                type: string
+        isEnabled:
+          type: boolean
+        isSystemObject:
+          type: boolean
+        lastModifiedDate:
+          type: integer
+          format: int64
+          description: Last modified timestamp (epoch milliseconds)
+        identifier:
+          type: string
+          description: External device identifier
+        projectName:
+          type: string
+    FieldDefinition:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        baseType:
+          type: string
+          enum:
+          - STRING
+          - INTEGER
+          - LONG
+          - NUMBER
+          - BOOLEAN
+          - DATETIME
+          - JSON
+          - INFOTABLE
+          - THINGNAME
+          - LOCATION
+        ordinal:
+          type: integer
+        isPrimaryKey:
+          type: boolean
+    Error:
+      type: object
+      properties:
+        Message:
+          type: string
+        Thread:
+          type: string
+        Code:
+          type: integer
+    ServiceResult:
+      type: object
+      description: ThingWorx service execution result
+      properties:
+        rows:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        dataShape:
+          $ref: '#/components/schemas/DataShape'
+    DataShape:
+      type: object
+      description: A ThingWorx data shape definition
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        fieldDefinitions:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/FieldDefinition'
+    InfoTable:
+      type: object
+      description: ThingWorx InfoTable - the universal tabular data container
+      properties:
+        dataShape:
+          $ref: '#/components/schemas/DataShape'
+        rows:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+  parameters:
+    ThingName:
+      name: thingName
+      in: path
+      required: true
+      description: ThingWorx thing name
+      schema:
+        type: string
+  responses:
+    NotFound:
+      description: Thing, property, or service not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ServerError:
+      description: Internal server or service execution error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    appKey:
+      type: apiKey
+      in: header
+      name: appKey
+      description: ThingWorx Application Key for authentication
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://thingworx.example.com/oauth/authorize
+          tokenUrl: https://thingworx.example.com/oauth/token
+          scopes:
+            THINGWORX: Access ThingWorx REST API

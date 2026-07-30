@@ -1,62 +1,147 @@
 aid: ptc-thingworx
+accessModel:
+  pricing: enterprise
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Enterprise · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/ptc-thingworx.png
 url: https://raw.githubusercontent.com/api-evangelist/ptc-thingworx/refs/heads/main/apis.yml
 apis:
-  - aid: ptc-thingworx:thingworx-rest-api
-    name: PTC ThingWorx REST API
-    tags:
-      - Digital Twin
-      - IoT
-      - Manufacturing
-      - REST
-    image: https://raw.githubusercontent.com/api-evangelist/ptc-thingworx/refs/heads/main/image.png
-    humanURL: https://docs.ptc.com/r/en-US/ThingWorx-Help/ThingWorx/Help/Composer/Security/ApplicationKeys/ApplicationKeys
-    baseURL: https://api.thingworx.example.com/Thingworx
-    properties:
-      - url: https://docs.ptc.com/
-        type: Documentation
-      - url: https://docs.ptc.com/
-        type: Reference
-      - url: openapi/ptc-thingworx-rest-openapi.yml
-        type: OpenAPI
-    description: >-
-      PTC ThingWorx REST API provides programmatic access to the ThingWorx IoT platform including thing management,
-      property read/write, service execution, event subscription, and mashup data APIs using Application Key or OAuth
-      authentication.
-  - aid: ptc-thingworx:thingworx-websocket-api
-    name: PTC ThingWorx WebSocket/AlwaysOn API
-    tags:
-      - IoT
-      - Manufacturing
-      - Real-Time
-      - WebSocket
-    image: https://raw.githubusercontent.com/api-evangelist/ptc-thingworx/refs/heads/main/image.png
-    humanURL: https://docs.ptc.com/
-    baseURL: https://api.thingworx.example.com
-    properties:
-      - url: https://docs.ptc.com/
-        type: Documentation
-      - url: asyncapi/ptc-thingworx-websocket-asyncapi.yml
-        type: AsyncAPI
-    description: >-
-      PTC ThingWorx AlwaysOn WebSocket API enables persistent bidirectional connections for industrial edge devices and
-      remote assets, supporting real-time telemetry streaming, command and control, and device lifecycle management.
-  - aid: ptc-thingworx:windchill-rest-api
-    name: PTC Windchill REST API
-    tags:
-      - CAD
-      - Manufacturing
-      - PDM
-      - PLM
-      - REST
-    image: https://raw.githubusercontent.com/api-evangelist/ptc-thingworx/refs/heads/main/image.png
-    humanURL: https://docs.ptc.com/
-    baseURL: https://api.windchill.example.com
-    properties:
-      - url: https://docs.ptc.com/
-        type: Documentation
-    description: >-
-      PTC Windchill REST API provides product lifecycle management and PDM access for CAD data management, bill of
-      materials, change management, workflow automation, and product lifecycle workflows in manufacturing environments.
+- aid: ptc-thingworx:thingworx-websocket-api
+  name: PTC ThingWorx WebSocket/AlwaysOn API
+  tags:
+  - IoT
+  - Manufacturing
+  - Real-Time
+  - WebSocket
+  image: https://raw.githubusercontent.com/api-evangelist/ptc-thingworx/refs/heads/main/image.png
+  humanURL: https://docs.ptc.com/
+  baseURL: https://api.thingworx.example.com
+  properties:
+  - url: https://docs.ptc.com/
+    type: Documentation
+  - url: asyncapi/ptc-thingworx-websocket-asyncapi.yml
+    type: AsyncAPI
+  description: >-
+    PTC ThingWorx AlwaysOn WebSocket API enables persistent bidirectional connections for industrial edge
+    devices and remote assets, supporting real-time telemetry streaming, command and control, and device
+    lifecycle management.
+- aid: ptc-thingworx:windchill-rest-api
+  name: PTC Windchill REST API
+  tags:
+  - CAD
+  - Manufacturing
+  - PDM
+  - PLM
+  - REST
+  image: https://raw.githubusercontent.com/api-evangelist/ptc-thingworx/refs/heads/main/image.png
+  humanURL: https://docs.ptc.com/
+  baseURL: https://api.windchill.example.com
+  properties:
+  - url: https://docs.ptc.com/
+    type: Documentation
+  description: >-
+    PTC Windchill REST API provides product lifecycle management and PDM access for CAD data management,
+    bill of materials, change management, workflow automation, and product lifecycle workflows in manufacturing
+    environments.
+- aid: ptc-thingworx:ptc-thingworx-datashapes-api
+  name: ptc-thingworx DataShapes API
+  description: Data shape definitions
+  humanURL: >-
+    https://docs.ptc.com/r/en-US/ThingWorx-Help/ThingWorx/Help/Composer/Security/ApplicationKeys/ApplicationKeys
+  baseURL: https://api.thingworx.example.com/Thingworx
+  tags:
+  - DataShapes
+  properties:
+  - type: OpenAPI
+    url: openapi/ptc-thingworx-datashapes-api-openapi.yml
+  - type: Documentation
+    url: https://docs.ptc.com/
+  - type: Reference
+    url: https://docs.ptc.com/
+- aid: ptc-thingworx:ptc-thingworx-events-api
+  name: ptc-thingworx Events API
+  description: Event management and subscription
+  humanURL: >-
+    https://docs.ptc.com/r/en-US/ThingWorx-Help/ThingWorx/Help/Composer/Security/ApplicationKeys/ApplicationKeys
+  baseURL: https://api.thingworx.example.com/Thingworx
+  tags:
+  - Events
+  properties:
+  - type: OpenAPI
+    url: openapi/ptc-thingworx-events-api-openapi.yml
+  - type: Documentation
+    url: https://docs.ptc.com/
+  - type: Reference
+    url: https://docs.ptc.com/
+- aid: ptc-thingworx:ptc-thingworx-properties-api
+  name: ptc-thingworx Properties API
+  description: Thing property read/write
+  humanURL: >-
+    https://docs.ptc.com/r/en-US/ThingWorx-Help/ThingWorx/Help/Composer/Security/ApplicationKeys/ApplicationKeys
+  baseURL: https://api.thingworx.example.com/Thingworx
+  tags:
+  - Properties
+  properties:
+  - type: OpenAPI
+    url: openapi/ptc-thingworx-properties-api-openapi.yml
+  - type: Documentation
+    url: https://docs.ptc.com/
+  - type: Reference
+    url: https://docs.ptc.com/
+- aid: ptc-thingworx:ptc-thingworx-things-api
+  name: ptc-thingworx Things API
+  description: Thing (digital twin) management
+  humanURL: >-
+    https://docs.ptc.com/r/en-US/ThingWorx-Help/ThingWorx/Help/Composer/Security/ApplicationKeys/ApplicationKeys
+  baseURL: https://api.thingworx.example.com/Thingworx
+  tags:
+  - Things
+  properties:
+  - type: OpenAPI
+    url: openapi/ptc-thingworx-things-api-openapi.yml
+  - type: Documentation
+    url: https://docs.ptc.com/
+  - type: Reference
+    url: https://docs.ptc.com/
+- aid: ptc-thingworx:ptc-thingworx-thingtemplates-api
+  name: ptc-thingworx ThingTemplates API
+  description: Thing template management
+  humanURL: >-
+    https://docs.ptc.com/r/en-US/ThingWorx-Help/ThingWorx/Help/Composer/Security/ApplicationKeys/ApplicationKeys
+  baseURL: https://api.thingworx.example.com/Thingworx
+  tags:
+  - ThingTemplates
+  properties:
+  - type: OpenAPI
+    url: openapi/ptc-thingworx-thingtemplates-api-openapi.yml
+  - type: Documentation
+    url: https://docs.ptc.com/
+  - type: Reference
+    url: https://docs.ptc.com/
+- aid: ptc-thingworx:ptc-thingworx-valuestreams-api
+  name: ptc-thingworx ValueStreams API
+  description: Time-series property streams
+  humanURL: >-
+    https://docs.ptc.com/r/en-US/ThingWorx-Help/ThingWorx/Help/Composer/Security/ApplicationKeys/ApplicationKeys
+  baseURL: https://api.thingworx.example.com/Thingworx
+  tags:
+  - ValueStreams
+  properties:
+  - type: OpenAPI
+    url: openapi/ptc-thingworx-valuestreams-api-openapi.yml
+  - type: Documentation
+    url: https://docs.ptc.com/
+  - type: Reference
+    url: https://docs.ptc.com/
 common:
   - type: AgenticAccess
     url: agentic-access/ptc-thingworx-agentic-access.yml

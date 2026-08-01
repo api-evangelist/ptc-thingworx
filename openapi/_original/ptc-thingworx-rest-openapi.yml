@@ -1,0 +1,517 @@
+openapi: 3.1.0
+info:
+  title: PTC ThingWorx REST API
+  description: >-
+    PTC ThingWorx REST API provides programmatic access to the ThingWorx IoT platform
+    including thing management, property read/write, service execution, event
+    subscription, and mashup data APIs using Application Key or OAuth authentication.
+    ThingWorx is PTC's industrial IoT platform for digital twin and connected factory
+    applications.
+  version: 9.5.0
+  contact:
+    name: PTC Support
+    url: https://www.ptc.com/en/support
+  license:
+    name: PTC Software License
+    url: https://www.ptc.com/en/legal-agreements
+servers:
+  - url: https://{host}/Thingworx
+    description: ThingWorx REST API
+    variables:
+      host:
+        default: thingworx.example.com
+        description: ThingWorx server hostname
+
+security:
+  - appKey: []
+  - oauth2: []
+
+tags:
+  - name: DataShapes
+    description: Data shape definitions
+  - name: Events
+    description: Event management and subscription
+  - name: Properties
+    description: Thing property read/write
+  - name: Things
+    description: Thing (digital twin) management
+  - name: ThingTemplates
+    description: Thing template management
+  - name: ValueStreams
+    description: Time-series property streams
+
+paths:
+  /Things:
+    get:
+      operationId: listThings
+      summary: List things
+      description: Returns all things accessible to the authenticated user, with optional filtering.
+      tags:
+        - Things
+      parameters:
+        - name: maxItems
+          in: query
+          description: Maximum number of things to return
+          schema:
+            type: integer
+            default: 500
+            maximum: 5000
+        - name: nameMask
+          in: query
+          description: Name filter using % as wildcard
+          schema:
+            type: string
+        - name: tags
+          in: query
+          description: Tag-based filter
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Thing list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InfoTable'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /Things/{thingName}:
+    get:
+      operationId: getThing
+      summary: Get a thing
+      description: Returns metadata and configuration for a specific thing (digital twin).
+      tags:
+        - Things
+      parameters:
+        - $ref: '#/components/parameters/ThingName'
+      responses:
+        '200':
+          description: Thing metadata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Thing'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /Things/{thingName}/Properties:
+    get:
+      operationId: getThingProperties
+      summary: Get all thing properties
+      description: Returns the current values of all properties for a thing.
+      tags:
+        - Properties
+      parameters:
+        - $ref: '#/components/parameters/ThingName'
+      responses:
+        '200':
+          description: Property values
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InfoTable'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /Things/{thingName}/Properties/{propertyName}:
+    get:
+      operationId: getThingProperty
+      summary: Get a thing property
+      description: Returns the current value of a specific thing property.
+      tags:
+        - Properties
+      parameters:
+        - $ref: '#/components/parameters/ThingName'
+        - $ref: '#/components/parameters/PropertyName'
+      responses:
+        '200':
+          description: Property value
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PropertyValue'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: setThingProperty
+      summary: Set a thing property
+      description: Sets the value of a writable property on a thing.
+      tags:
+        - Properties
+      parameters:
+        - $ref: '#/components/parameters/ThingName'
+        - $ref: '#/components/parameters/PropertyName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PropertySetRequest'
+      responses:
+        '200':
+          description: Property updated
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /Things/{thingName}/Properties/{propertyName}/QueryPropertyHistory:
+    get:
+      operationId: queryPropertyHistory
+      summary: Query property history
+      description: Returns the time-series history of a property value from the value stream.
+      tags:
+        - ValueStreams
+      parameters:
+        - $ref: '#/components/parameters/ThingName'
+        - $ref: '#/components/parameters/PropertyName'
+        - name: startDate
+          in: query
+          description: Start of time range (epoch milliseconds)
+          schema:
+            type: integer
+            format: int64
+        - name: endDate
+          in: query
+          description: End of time range (epoch milliseconds)
+          schema:
+            type: integer
+            format: int64
+        - name: maxItems
+          in: query
+          schema:
+            type: integer
+            default: 500
+        - name: query
+          in: query
+          description: JSON query expression for filtering
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Property history
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InfoTable'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /Things/{thingName}/Services/{serviceName}:
+    post:
+      operationId: executeService
+      summary: Execute a thing service
+      description: Executes a service (method) on a thing and returns the result.
+      tags: []
+      parameters:
+        - $ref: '#/components/parameters/ThingName'
+        - name: serviceName
+          in: path
+          required: true
+          description: Service name
+          schema:
+            type: string
+      requestBody:
+        description: Service input parameters as key-value pairs
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Service execution result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceResult'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /Things/{thingName}/Events:
+    get:
+      operationId: getThingEvents
+      summary: List thing events
+      description: Returns event definitions configured on a thing.
+      tags:
+        - Events
+      parameters:
+        - $ref: '#/components/parameters/ThingName'
+      responses:
+        '200':
+          description: Event list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InfoTable'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /Things/{thingName}/EventHistory:
+    get:
+      operationId: getEventHistory
+      summary: Query event history
+      description: Returns historical events fired by a thing within a time range.
+      tags:
+        - Events
+      parameters:
+        - $ref: '#/components/parameters/ThingName'
+        - name: startDate
+          in: query
+          schema:
+            type: integer
+            format: int64
+        - name: endDate
+          in: query
+          schema:
+            type: integer
+            format: int64
+        - name: maxItems
+          in: query
+          schema:
+            type: integer
+            default: 500
+      responses:
+        '200':
+          description: Event history
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InfoTable'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /ThingTemplates:
+    get:
+      operationId: listThingTemplates
+      summary: List thing templates
+      description: Returns all thing templates which define the shape (properties, services, events) of things.
+      tags:
+        - ThingTemplates
+      parameters:
+        - name: maxItems
+          in: query
+          schema:
+            type: integer
+            default: 500
+      responses:
+        '200':
+          description: Thing template list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InfoTable'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /DataShapes/{dataShapeName}:
+    get:
+      operationId: getDataShape
+      summary: Get a data shape
+      description: Returns the field definitions of a ThingWorx data shape.
+      tags:
+        - DataShapes
+      parameters:
+        - name: dataShapeName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Data shape definition
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataShape'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+components:
+  securitySchemes:
+    appKey:
+      type: apiKey
+      in: header
+      name: appKey
+      description: ThingWorx Application Key for authentication
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://thingworx.example.com/oauth/authorize
+          tokenUrl: https://thingworx.example.com/oauth/token
+          scopes:
+            THINGWORX: Access ThingWorx REST API
+
+  parameters:
+    ThingName:
+      name: thingName
+      in: path
+      required: true
+      description: ThingWorx thing name
+      schema:
+        type: string
+    PropertyName:
+      name: propertyName
+      in: path
+      required: true
+      description: ThingWorx property name
+      schema:
+        type: string
+
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Thing, property, or service not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ServerError:
+      description: Internal server or service execution error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+  schemas:
+    InfoTable:
+      type: object
+      description: ThingWorx InfoTable - the universal tabular data container
+      properties:
+        dataShape:
+          $ref: '#/components/schemas/DataShape'
+        rows:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+
+    Thing:
+      type: object
+      description: A ThingWorx thing (digital twin instance)
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        thingTemplate:
+          type: string
+          description: Parent thing template name
+        thingShape:
+          type: string
+          description: Applied thing shape name
+        tags:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              vocabulary:
+                type: string
+        isEnabled:
+          type: boolean
+        isSystemObject:
+          type: boolean
+        lastModifiedDate:
+          type: integer
+          format: int64
+          description: Last modified timestamp (epoch milliseconds)
+        identifier:
+          type: string
+          description: External device identifier
+        projectName:
+          type: string
+
+    PropertyValue:
+      type: object
+      description: A thing property current value
+      properties:
+        rows:
+          type: array
+          items:
+            type: object
+            properties:
+              value:
+                description: The property value (type depends on base type)
+              timestamp:
+                type: integer
+                format: int64
+                description: Value timestamp (epoch milliseconds)
+              quality:
+                type: string
+                description: Quality string (GOOD, BAD, etc.)
+
+    PropertySetRequest:
+      type: object
+      description: Request body for setting a property value
+      properties:
+        value:
+          description: New property value (type must match property base type)
+
+    ServiceResult:
+      type: object
+      description: ThingWorx service execution result
+      properties:
+        rows:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        dataShape:
+          $ref: '#/components/schemas/DataShape'
+
+    DataShape:
+      type: object
+      description: A ThingWorx data shape definition
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        fieldDefinitions:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/FieldDefinition'
+
+    FieldDefinition:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        baseType:
+          type: string
+          enum: [STRING, INTEGER, LONG, NUMBER, BOOLEAN, DATETIME, JSON, INFOTABLE, THINGNAME, LOCATION]
+        ordinal:
+          type: integer
+        isPrimaryKey:
+          type: boolean
+
+    Error:
+      type: object
+      properties:
+        Message:
+          type: string
+        Thread:
+          type: string
+        Code:
+          type: integer

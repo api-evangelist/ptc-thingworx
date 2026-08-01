@@ -1,0 +1,24 @@
+{
+  "provider": "ptc-thingworx",
+  "sources": [
+    "ptc-thingworx-datashapes-api-openapi.yml",
+    "ptc-thingworx-events-api-openapi.yml",
+    "ptc-thingworx-properties-api-openapi.yml",
+    "ptc-thingworx-things-api-openapi.yml",
+    "ptc-thingworx-thingtemplates-api-openapi.yml",
+    "ptc-thingworx-valuestreams-api-openapi.yml"
+  ],
+  "outputs": [
+    "ptc-thingworx-datashapes-api-openapi.yml",
+    "ptc-thingworx-events-api-openapi.yml",
+    "ptc-thingworx-properties-api-openapi.yml",
+    "ptc-thingworx-things-api-openapi.yml",
+    "ptc-thingworx-thingtemplates-api-openapi.yml",
+    "ptc-thingworx-valuestreams-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

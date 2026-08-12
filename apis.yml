@@ -163,7 +163,7 @@ common:
     type: PrivacyPolicy
   - url: https://github.com/ptc-iot-sharing
     type: GitHubOrganization
-  - url: openapi/ptc-thingworx-rest-openapi.yml
+  - url: openapi/_original/ptc-thingworx-rest-openapi.yml
     type: OpenAPI
   - url: asyncapi/ptc-thingworx-websocket-asyncapi.yml
     type: AsyncAPI

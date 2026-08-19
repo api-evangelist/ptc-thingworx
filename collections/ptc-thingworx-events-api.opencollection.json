@@ -1,0 +1,79 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PTC ThingWorx REST DataShapes Events API",
+    "version": "9.5.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "appKey",
+      "value": "{{appKey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List thing events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/Thingworx/Things/:thingName/Events",
+            "params": [
+              {
+                "name": "thingName",
+                "value": "",
+                "type": "path",
+                "description": "ThingWorx thing name"
+              }
+            ]
+          },
+          "docs": "Returns event definitions configured on a thing."
+        },
+        {
+          "info": {
+            "name": "Query event history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/Thingworx/Things/:thingName/EventHistory",
+            "params": [
+              {
+                "name": "thingName",
+                "value": "",
+                "type": "path",
+                "description": "ThingWorx thing name"
+              },
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "maxItems",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns historical events fired by a thing within a time range."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

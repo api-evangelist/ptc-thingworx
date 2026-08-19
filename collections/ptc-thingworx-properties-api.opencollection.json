@@ -1,0 +1,99 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PTC ThingWorx REST DataShapes Properties API",
+    "version": "9.5.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "appKey",
+      "value": "{{appKey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Properties",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all thing properties",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/Thingworx/Things/:thingName/Properties",
+            "params": [
+              {
+                "name": "thingName",
+                "value": "",
+                "type": "path",
+                "description": "ThingWorx thing name"
+              }
+            ]
+          },
+          "docs": "Returns the current values of all properties for a thing."
+        },
+        {
+          "info": {
+            "name": "Get a thing property",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/Thingworx/Things/:thingName/Properties/:propertyName",
+            "params": [
+              {
+                "name": "thingName",
+                "value": "",
+                "type": "path",
+                "description": "ThingWorx thing name"
+              },
+              {
+                "name": "propertyName",
+                "value": "",
+                "type": "path",
+                "description": "ThingWorx property name"
+              }
+            ]
+          },
+          "docs": "Returns the current value of a specific thing property."
+        },
+        {
+          "info": {
+            "name": "Set a thing property",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}/Thingworx/Things/:thingName/Properties/:propertyName",
+            "params": [
+              {
+                "name": "thingName",
+                "value": "",
+                "type": "path",
+                "description": "ThingWorx thing name"
+              },
+              {
+                "name": "propertyName",
+                "value": "",
+                "type": "path",
+                "description": "ThingWorx property name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sets the value of a writable property on a thing."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

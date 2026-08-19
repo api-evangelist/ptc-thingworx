@@ -1,0 +1,44 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PTC ThingWorx REST DataShapes ThingTemplates API",
+    "version": "9.5.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "appKey",
+      "value": "{{appKey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "ThingTemplates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List thing templates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/Thingworx/ThingTemplates",
+            "params": [
+              {
+                "name": "maxItems",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns all thing templates which define the shape (properties, services, events) of things."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,771 @@
+{
+  "item": [
+    {
+      "id": "0fba3bf4-161b-4755-8c2d-30c775313982",
+      "name": "Things",
+      "description": {
+        "content": "Thing (digital twin) management",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "43b8752b-65de-4972-9ee1-7fa593abea29",
+          "name": "List things",
+          "request": {
+            "name": "List things",
+            "description": {
+              "content": "Returns all things accessible to the authenticated user, with optional filtering.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "Things"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "maxItems",
+                  "value": "500",
+                  "description": "Maximum number of things to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "nameMask",
+                  "value": "<string>",
+                  "description": "Name filter using % as wildcard"
+                },
+                {
+                  "disabled": false,
+                  "key": "tags",
+                  "value": "<string>",
+                  "description": "Tag-based filter"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "ThingWorx server hostname",
+                  "type": "any",
+                  "value": "{{host}}",
+                  "key": "host"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e134b53c-a42e-4945-b142-0ad45b47918f",
+              "name": "Thing list",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Things"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "maxItems",
+                      "value": "500"
+                    },
+                    {
+                      "key": "nameMask",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "ThingWorx server hostname",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "appKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"dataShape\": {\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"fieldDefinitions\": {\n      \"key_0\": {\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"baseType\": \"JSON\",\n        \"ordinal\": 3558,\n        \"isPrimaryKey\": false\n      },\n      \"key_1\": {\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"baseType\": \"NUMBER\",\n        \"ordinal\": 2063,\n        \"isPrimaryKey\": true\n      }\n    }\n  },\n  \"rows\": [\n    {\n      \"key_0\": false\n    },\n    {\n      \"key_0\": 3365\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9bc0454b-a3e3-4374-bf87-1dd72a1b67e9",
+              "name": "Authentication required or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Things"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "maxItems",
+                      "value": "500"
+                    },
+                    {
+                      "key": "nameMask",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "ThingWorx server hostname",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "appKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Message\": \"string\",\n  \"Thread\": \"string\",\n  \"Code\": 3133\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7eca78b0-16dc-4cf1-9b4c-a93ebcd00253",
+              "name": "Internal server or service execution error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Things"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "maxItems",
+                      "value": "500"
+                    },
+                    {
+                      "key": "nameMask",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "ThingWorx server hostname",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "appKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Message\": \"string\",\n  \"Thread\": \"string\",\n  \"Code\": 3133\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "47ed5797-3d62-43c2-8837-f52be98b63c9",
+          "name": "Get a thing",
+          "request": {
+            "name": "Get a thing",
+            "description": {
+              "content": "Returns metadata and configuration for a specific thing (digital twin).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "Things",
+                ":thingName"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "thingName",
+                  "description": "(Required) ThingWorx thing name"
+                },
+                {
+                  "description": "ThingWorx server hostname",
+                  "type": "any",
+                  "value": "{{host}}",
+                  "key": "host"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b7a49ccb-7563-4090-9574-a07b2829adf0",
+              "name": "Thing metadata",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Things",
+                    ":thingName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "thingName",
+                      "description": "(Required) ThingWorx thing name"
+                    },
+                    {
+                      "description": "ThingWorx server hostname",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "appKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"thingTemplate\": \"string\",\n  \"thingShape\": \"string\",\n  \"tags\": [\n    {\n      \"name\": \"string\",\n      \"vocabulary\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"vocabulary\": \"string\"\n    }\n  ],\n  \"isEnabled\": false,\n  \"isSystemObject\": false,\n  \"lastModifiedDate\": 9610,\n  \"identifier\": \"string\",\n  \"projectName\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "876010d0-959c-4556-b50a-8cc8bdb803ec",
+              "name": "Thing, property, or service not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Things",
+                    ":thingName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "thingName",
+                      "description": "(Required) ThingWorx thing name"
+                    },
+                    {
+                      "description": "ThingWorx server hostname",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "appKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Message\": \"string\",\n  \"Thread\": \"string\",\n  \"Code\": 3133\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "35aad47f-5929-40cf-9cd5-6f8fcf65c556",
+          "name": "Execute a thing service",
+          "request": {
+            "name": "Execute a thing service",
+            "description": {
+              "content": "Executes a service (method) on a thing and returns the result.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "Things",
+                ":thingName",
+                "Services",
+                ":serviceName"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "thingName",
+                  "description": "(Required) ThingWorx thing name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serviceName",
+                  "description": "(Required) Service name"
+                },
+                {
+                  "description": "ThingWorx server hostname",
+                  "type": "any",
+                  "value": "{{host}}",
+                  "key": "host"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key_0\": 837,\n  \"key_1\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d61c26f4-bcbd-4acf-9df9-8703aa12c551",
+              "name": "Service execution result",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Things",
+                    ":thingName",
+                    "Services",
+                    ":serviceName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "thingName",
+                      "description": "(Required) ThingWorx thing name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceName",
+                      "description": "(Required) Service name"
+                    },
+                    {
+                      "description": "ThingWorx server hostname",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "appKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": 3755.895485388635,\n  \"key_1\": \"string\",\n  \"key_2\": 9017.562151257616\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"rows\": [\n    {\n      \"key_0\": \"string\"\n    },\n    {\n      \"key_0\": 5711.272056514038,\n      \"key_1\": true\n    }\n  ],\n  \"dataShape\": {\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"fieldDefinitions\": {\n      \"key_0\": {\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"baseType\": \"NUMBER\",\n        \"ordinal\": 648,\n        \"isPrimaryKey\": true\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "87c9c84a-3885-4c77-8923-0ba1e0f88277",
+              "name": "Thing, property, or service not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Things",
+                    ":thingName",
+                    "Services",
+                    ":serviceName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "thingName",
+                      "description": "(Required) ThingWorx thing name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceName",
+                      "description": "(Required) Service name"
+                    },
+                    {
+                      "description": "ThingWorx server hostname",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "appKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": 3755.895485388635,\n  \"key_1\": \"string\",\n  \"key_2\": 9017.562151257616\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Message\": \"string\",\n  \"Thread\": \"string\",\n  \"Code\": 3133\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9263472d-27f3-4650-9fd7-e14ee9b7ae6e",
+              "name": "Internal server or service execution error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Things",
+                    ":thingName",
+                    "Services",
+                    ":serviceName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "thingName",
+                      "description": "(Required) ThingWorx thing name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceName",
+                      "description": "(Required) Service name"
+                    },
+                    {
+                      "description": "ThingWorx server hostname",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "appKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": 3755.895485388635,\n  \"key_1\": \"string\",\n  \"key_2\": 9017.562151257616\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Message\": \"string\",\n  \"Thread\": \"string\",\n  \"Code\": 3133\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "ThingWorx server hostname",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "thingworx.example.com",
+      "key": "host"
+    },
+    {
+      "type": "string",
+      "value": "https://{{host}}/Thingworx",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "appKey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e27e22a9-4ce0-428f-8507-76557c898640",
+    "name": "PTC ThingWorx REST DataShapes Things API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "PTC ThingWorx REST API provides programmatic access to the ThingWorx IoT platform including thing management, property read/write, service execution, event subscription, and mashup data APIs using Application Key or OAuth authentication. ThingWorx is PTC's industrial IoT platform for digital twin and connected factory applications.\n\nContact Support:\n Name: PTC Support",
+      "type": "text/plain"
+    }
+  }
+}

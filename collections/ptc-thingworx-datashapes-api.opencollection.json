@@ -1,0 +1,44 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PTC ThingWorx REST DataShapes API",
+    "version": "9.5.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "appKey",
+      "value": "{{appKey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "DataShapes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a data shape",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/Thingworx/DataShapes/:dataShapeName",
+            "params": [
+              {
+                "name": "dataShapeName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the field definitions of a ThingWorx data shape."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

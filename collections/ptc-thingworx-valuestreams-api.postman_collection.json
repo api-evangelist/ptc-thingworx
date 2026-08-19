@@ -1,0 +1,312 @@
+{
+  "item": [
+    {
+      "id": "e5a8719f-5bff-486c-be65-081127a888a5",
+      "name": "ValueStreams",
+      "description": {
+        "content": "Time-series property streams",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8180a532-8503-4f27-981c-a878b60139f9",
+          "name": "Query property history",
+          "request": {
+            "name": "Query property history",
+            "description": {
+              "content": "Returns the time-series history of a property value from the value stream.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "Things",
+                ":thingName",
+                "Properties",
+                ":propertyName",
+                "QueryPropertyHistory"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "startDate",
+                  "value": "<long>",
+                  "description": "Start of time range (epoch milliseconds)"
+                },
+                {
+                  "disabled": false,
+                  "key": "endDate",
+                  "value": "<long>",
+                  "description": "End of time range (epoch milliseconds)"
+                },
+                {
+                  "disabled": false,
+                  "key": "maxItems",
+                  "value": "500"
+                },
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "JSON query expression for filtering"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "thingName",
+                  "description": "(Required) ThingWorx thing name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "propertyName",
+                  "description": "(Required) ThingWorx property name"
+                },
+                {
+                  "description": "ThingWorx server hostname",
+                  "type": "any",
+                  "value": "{{host}}",
+                  "key": "host"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d81237f9-eea4-4f56-8e2e-81aa16fc97dc",
+              "name": "Property history",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Things",
+                    ":thingName",
+                    "Properties",
+                    ":propertyName",
+                    "QueryPropertyHistory"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startDate",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "maxItems",
+                      "value": "500"
+                    },
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "thingName",
+                      "description": "(Required) ThingWorx thing name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "propertyName",
+                      "description": "(Required) ThingWorx property name"
+                    },
+                    {
+                      "description": "ThingWorx server hostname",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "appKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"dataShape\": {\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"fieldDefinitions\": {\n      \"key_0\": {\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"baseType\": \"NUMBER\",\n        \"ordinal\": 1456,\n        \"isPrimaryKey\": true\n      }\n    }\n  },\n  \"rows\": [\n    {\n      \"key_0\": \"string\",\n      \"key_1\": 6783.656929397857\n    },\n    {\n      \"key_0\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2a6e430a-7bbf-4575-a00a-2d973854de60",
+              "name": "Thing, property, or service not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Things",
+                    ":thingName",
+                    "Properties",
+                    ":propertyName",
+                    "QueryPropertyHistory"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startDate",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "maxItems",
+                      "value": "500"
+                    },
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "thingName",
+                      "description": "(Required) ThingWorx thing name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "propertyName",
+                      "description": "(Required) ThingWorx property name"
+                    },
+                    {
+                      "description": "ThingWorx server hostname",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "appKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Message\": \"string\",\n  \"Thread\": \"string\",\n  \"Code\": 7860\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "ThingWorx server hostname",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "thingworx.example.com",
+      "key": "host"
+    },
+    {
+      "type": "string",
+      "value": "https://{{host}}/Thingworx",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "appKey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "28e801ff-328b-419d-995c-2ec0279f2d8a",
+    "name": "PTC ThingWorx REST DataShapes ValueStreams API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "PTC ThingWorx REST API provides programmatic access to the ThingWorx IoT platform including thing management, property read/write, service execution, event subscription, and mashup data APIs using Application Key or OAuth authentication. ThingWorx is PTC's industrial IoT platform for digital twin and connected factory applications.\n\nContact Support:\n Name: PTC Support",
+      "type": "text/plain"
+    }
+  }
+}

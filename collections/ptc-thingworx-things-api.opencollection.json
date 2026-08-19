@@ -1,0 +1,105 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PTC ThingWorx REST DataShapes Things API",
+    "version": "9.5.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "appKey",
+      "value": "{{appKey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Things",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List things",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/Thingworx/Things",
+            "params": [
+              {
+                "name": "maxItems",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of things to return"
+              },
+              {
+                "name": "nameMask",
+                "value": "",
+                "type": "query",
+                "description": "Name filter using % as wildcard"
+              },
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query",
+                "description": "Tag-based filter"
+              }
+            ]
+          },
+          "docs": "Returns all things accessible to the authenticated user, with optional filtering."
+        },
+        {
+          "info": {
+            "name": "Get a thing",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/Thingworx/Things/:thingName",
+            "params": [
+              {
+                "name": "thingName",
+                "value": "",
+                "type": "path",
+                "description": "ThingWorx thing name"
+              }
+            ]
+          },
+          "docs": "Returns metadata and configuration for a specific thing (digital twin)."
+        },
+        {
+          "info": {
+            "name": "Execute a thing service",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{host}/Thingworx/Things/:thingName/Services/:serviceName",
+            "params": [
+              {
+                "name": "thingName",
+                "value": "",
+                "type": "path",
+                "description": "ThingWorx thing name"
+              },
+              {
+                "name": "serviceName",
+                "value": "",
+                "type": "path",
+                "description": "Service name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Executes a service (method) on a thing and returns the result."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

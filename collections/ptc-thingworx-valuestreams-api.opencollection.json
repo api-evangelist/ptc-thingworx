@@ -1,0 +1,74 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PTC ThingWorx REST DataShapes ValueStreams API",
+    "version": "9.5.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "appKey",
+      "value": "{{appKey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "ValueStreams",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Query property history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/Thingworx/Things/:thingName/Properties/:propertyName/QueryPropertyHistory",
+            "params": [
+              {
+                "name": "thingName",
+                "value": "",
+                "type": "path",
+                "description": "ThingWorx thing name"
+              },
+              {
+                "name": "propertyName",
+                "value": "",
+                "type": "path",
+                "description": "ThingWorx property name"
+              },
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query",
+                "description": "Start of time range (epoch milliseconds)"
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "End of time range (epoch milliseconds)"
+              },
+              {
+                "name": "maxItems",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "JSON query expression for filtering"
+              }
+            ]
+          },
+          "docs": "Returns the time-series history of a property value from the value stream."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -75,6 +75,8 @@ apis:
     https://docs.ptc.com/r/en-US/ThingWorx-Help/ThingWorx/Help/Composer/Security/ApplicationKeys/ApplicationKeys
   baseURL: https://api.thingworx.example.com/Thingworx
   tags:
+  - Event
+  tags_raw:
   - Events
   properties:
   - type: OpenAPI

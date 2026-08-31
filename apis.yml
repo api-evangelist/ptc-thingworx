@@ -35,7 +35,6 @@ apis:
   - Manufacturing
   - Real-Time
   - WebSocket
-  image: https://raw.githubusercontent.com/api-evangelist/ptc-thingworx/refs/heads/main/image.png
   humanURL: https://docs.ptc.com/
   baseURL: https://api.thingworx.example.com
   properties:
@@ -55,7 +54,6 @@ apis:
   - PDM
   - PLM
   - REST
-  image: https://raw.githubusercontent.com/api-evangelist/ptc-thingworx/refs/heads/main/image.png
   humanURL: https://docs.ptc.com/
   baseURL: https://api.windchill.example.com
   properties:

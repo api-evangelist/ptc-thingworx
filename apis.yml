@@ -193,3 +193,5 @@ modified: '2026-05-19'
 description: >-
   PTC ThingWorx is an industrial Internet of Things platform that enables companies to rapidly develop and deploy smart,
   connected solutions for industrial environments.
+x-parent: ptc
+x-relationship: product

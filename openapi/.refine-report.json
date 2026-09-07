@@ -19,6 +19,14 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
+  "notes": [
+    "ptc-thingworx-datashapes-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "ptc-thingworx-events-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "ptc-thingworx-properties-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "ptc-thingworx-things-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "ptc-thingworx-thingtemplates-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "ptc-thingworx-valuestreams-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
   "skipped": []
 }

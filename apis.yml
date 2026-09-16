@@ -1,5 +1,5 @@
 aid: ptc-thingworx
-name: "PTC ThingWorx"
+name: PTC ThingWorx
 deliveryModel:
   model: unknown
   open_source: false
@@ -42,10 +42,9 @@ apis:
     type: Documentation
   - url: asyncapi/ptc-thingworx-websocket-asyncapi.yml
     type: AsyncAPI
-  description: >-
-    PTC ThingWorx AlwaysOn WebSocket API enables persistent bidirectional connections for industrial edge
-    devices and remote assets, supporting real-time telemetry streaming, command and control, and device
-    lifecycle management.
+  description: PTC ThingWorx AlwaysOn WebSocket API enables persistent bidirectional connections for industrial
+    edge devices and remote assets, supporting real-time telemetry streaming, command and control, and
+    device lifecycle management.
 - aid: ptc-thingworx:windchill-rest-api
   name: PTC Windchill REST API
   tags:
@@ -59,15 +58,13 @@ apis:
   properties:
   - url: https://docs.ptc.com/
     type: Documentation
-  description: >-
-    PTC Windchill REST API provides product lifecycle management and PDM access for CAD data management,
-    bill of materials, change management, workflow automation, and product lifecycle workflows in manufacturing
-    environments.
+  description: PTC Windchill REST API provides product lifecycle management and PDM access for CAD data
+    management, bill of materials, change management, workflow automation, and product lifecycle workflows
+    in manufacturing environments.
 - aid: ptc-thingworx:ptc-thingworx-datashapes-api
   name: ptc-thingworx DataShapes API
   description: Data shape definitions
-  humanURL: >-
-    https://docs.ptc.com/r/en-US/ThingWorx-Help/ThingWorx/Help/Composer/Security/ApplicationKeys/ApplicationKeys
+  humanURL: https://docs.ptc.com/r/en-US/ThingWorx-Help/ThingWorx/Help/Composer/Security/ApplicationKeys/ApplicationKeys
   baseURL: https://api.thingworx.example.com/Thingworx
   tags:
   - DataShapes
@@ -81,8 +78,7 @@ apis:
 - aid: ptc-thingworx:ptc-thingworx-events-api
   name: ptc-thingworx Events API
   description: Event management and subscription
-  humanURL: >-
-    https://docs.ptc.com/r/en-US/ThingWorx-Help/ThingWorx/Help/Composer/Security/ApplicationKeys/ApplicationKeys
+  humanURL: https://docs.ptc.com/r/en-US/ThingWorx-Help/ThingWorx/Help/Composer/Security/ApplicationKeys/ApplicationKeys
   baseURL: https://api.thingworx.example.com/Thingworx
   tags:
   - Event
@@ -98,8 +94,7 @@ apis:
 - aid: ptc-thingworx:ptc-thingworx-properties-api
   name: ptc-thingworx Properties API
   description: Thing property read/write
-  humanURL: >-
-    https://docs.ptc.com/r/en-US/ThingWorx-Help/ThingWorx/Help/Composer/Security/ApplicationKeys/ApplicationKeys
+  humanURL: https://docs.ptc.com/r/en-US/ThingWorx-Help/ThingWorx/Help/Composer/Security/ApplicationKeys/ApplicationKeys
   baseURL: https://api.thingworx.example.com/Thingworx
   tags:
   - Properties
@@ -113,8 +108,7 @@ apis:
 - aid: ptc-thingworx:ptc-thingworx-things-api
   name: ptc-thingworx Things API
   description: Thing (digital twin) management
-  humanURL: >-
-    https://docs.ptc.com/r/en-US/ThingWorx-Help/ThingWorx/Help/Composer/Security/ApplicationKeys/ApplicationKeys
+  humanURL: https://docs.ptc.com/r/en-US/ThingWorx-Help/ThingWorx/Help/Composer/Security/ApplicationKeys/ApplicationKeys
   baseURL: https://api.thingworx.example.com/Thingworx
   tags:
   - Things
@@ -128,8 +122,7 @@ apis:
 - aid: ptc-thingworx:ptc-thingworx-thingtemplates-api
   name: ptc-thingworx ThingTemplates API
   description: Thing template management
-  humanURL: >-
-    https://docs.ptc.com/r/en-US/ThingWorx-Help/ThingWorx/Help/Composer/Security/ApplicationKeys/ApplicationKeys
+  humanURL: https://docs.ptc.com/r/en-US/ThingWorx-Help/ThingWorx/Help/Composer/Security/ApplicationKeys/ApplicationKeys
   baseURL: https://api.thingworx.example.com/Thingworx
   tags:
   - ThingTemplates
@@ -143,8 +136,7 @@ apis:
 - aid: ptc-thingworx:ptc-thingworx-valuestreams-api
   name: ptc-thingworx ValueStreams API
   description: Time-series property streams
-  humanURL: >-
-    https://docs.ptc.com/r/en-US/ThingWorx-Help/ThingWorx/Help/Composer/Security/ApplicationKeys/ApplicationKeys
+  humanURL: https://docs.ptc.com/r/en-US/ThingWorx-Help/ThingWorx/Help/Composer/Security/ApplicationKeys/ApplicationKeys
   baseURL: https://api.thingworx.example.com/Thingworx
   tags:
   - ValueStreams
@@ -156,42 +148,46 @@ apis:
   - type: Reference
     url: https://docs.ptc.com/
 common:
-  - type: AgenticAccess
-    url: agentic-access/ptc-thingworx-agentic-access.yml
-  - type: DomainSecurity
-    url: security/ptc-thingworx-domain-security.yml
-  - type: Authentication
-    url: authentication/ptc-thingworx-authentication.yml
-  - type: OAuthScopes
-    url: scopes/ptc-thingworx-scopes.yml
-  - type: LinkedIn
-    url: https://www.linkedin.com/company/ptc-thingworx
-  - url: https://docs.ptc.com/
-    type: Portal
-  - url: https://docs.ptc.com/
-    type: Documentation
-  - url: https://www.ptc.com/en/technologies/iiot/thingworx-platform
-    type: Website
-  - url: https://www.ptc.com/en/privacy-policy
-    type: PrivacyPolicy
-  - url: https://github.com/ptc-iot-sharing
-    type: GitHubOrganization
-  - url: openapi/_original/ptc-thingworx-rest-openapi.yml
-    type: OpenAPI
-  - url: asyncapi/ptc-thingworx-websocket-asyncapi.yml
-    type: AsyncAPI
-  - url: json-schema/ptc-thingworx-thing-schema.json
-    type: JSONSchema
-  - url: json-ld/ptc-thingworx-context.jsonld
-    type: JSONLDContext
-  - url: https://www.ptc.com/en/blogs
-    type: Blog
+- type: AgenticAccess
+  url: agentic-access/ptc-thingworx-agentic-access.yml
+- type: DomainSecurity
+  url: security/ptc-thingworx-domain-security.yml
+- type: Authentication
+  url: authentication/ptc-thingworx-authentication.yml
+- type: OAuthScopes
+  url: scopes/ptc-thingworx-scopes.yml
+- type: LinkedIn
+  url: https://www.linkedin.com/company/ptc-thingworx
+- url: https://docs.ptc.com/
+  type: Portal
+- url: https://docs.ptc.com/
+  type: Documentation
+- url: https://www.ptc.com/en/technologies/iiot/thingworx-platform
+  type: Website
+- url: https://www.ptc.com/en/privacy-policy
+  type: PrivacyPolicy
+- url: https://github.com/ptc-iot-sharing
+  type: GitHubOrganization
+- url: openapi/_original/ptc-thingworx-rest-openapi.yml
+  type: OpenAPI
+- url: asyncapi/ptc-thingworx-websocket-asyncapi.yml
+  type: AsyncAPI
+- url: json-schema/ptc-thingworx-thing-schema.json
+  type: JSONSchema
+- url: json-ld/ptc-thingworx-context.jsonld
+  type: JSONLDContext
+- url: https://www.ptc.com/en/blogs
+  type: Blog
 maintainers:
-  - name: Kin Lane
-    email: kin@apievangelist.com
-modified: '2026-05-19'
-description: >-
-  PTC ThingWorx is an industrial Internet of Things platform that enables companies to rapidly develop and deploy smart,
-  connected solutions for industrial environments.
+- name: Kin Lane
+  email: kin@apievangelist.com
+modified: '2026-09-16'
+description: PTC ThingWorx is an industrial Internet of Things platform that enables companies to rapidly
+  develop and deploy smart, connected solutions for industrial environments.
 x-parent: ptc
 x-relationship: product
+tags:
+- Manufacturing
+- IoT
+- WebSocket
+- CAD

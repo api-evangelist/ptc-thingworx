@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: PTC ThingWorx REST DataShapes Properties API
+  title: PTC ThingWorx REST Properties API
   description: PTC ThingWorx REST API provides programmatic access to the ThingWorx IoT platform including thing management, property read/write, service execution, event subscription, and mashup data APIs using Application Key or OAuth authentication. ThingWorx is PTC's industrial IoT platform for digital twin and connected factory applications.
   version: 9.5.0
   contact:
@@ -84,12 +84,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    PropertySetRequest:
-      type: object
-      description: Request body for setting a property value
-      properties:
-        value:
-          description: New property value (type must match property base type)
     PropertyValue:
       type: object
       description: A thing property current value
@@ -108,38 +102,6 @@ components:
               quality:
                 type: string
                 description: Quality string (GOOD, BAD, etc.)
-    DataShape:
-      type: object
-      description: A ThingWorx data shape definition
-      properties:
-        name:
-          type: string
-        description:
-          type: string
-        fieldDefinitions:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/FieldDefinition'
-    InfoTable:
-      type: object
-      description: ThingWorx InfoTable - the universal tabular data container
-      properties:
-        dataShape:
-          $ref: '#/components/schemas/DataShape'
-        rows:
-          type: array
-          items:
-            type: object
-            additionalProperties: true
-    Error:
-      type: object
-      properties:
-        Message:
-          type: string
-        Thread:
-          type: string
-        Code:
-          type: integer
     FieldDefinition:
       type: object
       properties:
@@ -164,6 +126,44 @@ components:
           type: integer
         isPrimaryKey:
           type: boolean
+    InfoTable:
+      type: object
+      description: ThingWorx InfoTable - the universal tabular data container
+      properties:
+        dataShape:
+          $ref: '#/components/schemas/DataShape'
+        rows:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+    DataShape:
+      type: object
+      description: A ThingWorx data shape definition
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        fieldDefinitions:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/FieldDefinition'
+    Error:
+      type: object
+      properties:
+        Message:
+          type: string
+        Thread:
+          type: string
+        Code:
+          type: integer
+    PropertySetRequest:
+      type: object
+      description: Request body for setting a property value
+      properties:
+        value:
+          description: New property value (type must match property base type)
   parameters:
     ThingName:
       name: thingName

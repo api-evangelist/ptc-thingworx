@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: PTC ThingWorx REST DataShapes Events API
+  title: PTC ThingWorx REST Events API
   description: PTC ThingWorx REST API provides programmatic access to the ThingWorx IoT platform including thing management, property read/write, service execution, event subscription, and mashup data APIs using Application Key or OAuth authentication. ThingWorx is PTC's industrial IoT platform for digital twin and connected factory applications.
   version: 9.5.0
   contact:
@@ -83,26 +83,7 @@ components:
       description: ThingWorx thing name
       schema:
         type: string
-  responses:
-    NotFound:
-      description: Thing, property, or service not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    DataShape:
-      type: object
-      description: A ThingWorx data shape definition
-      properties:
-        name:
-          type: string
-        description:
-          type: string
-        fieldDefinitions:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/FieldDefinition'
     FieldDefinition:
       type: object
       properties:
@@ -138,6 +119,18 @@ components:
           items:
             type: object
             additionalProperties: true
+    DataShape:
+      type: object
+      description: A ThingWorx data shape definition
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        fieldDefinitions:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/FieldDefinition'
     Error:
       type: object
       properties:
@@ -147,6 +140,13 @@ components:
           type: string
         Code:
           type: integer
+  responses:
+    NotFound:
+      description: Thing, property, or service not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     appKey:
       type: apiKey

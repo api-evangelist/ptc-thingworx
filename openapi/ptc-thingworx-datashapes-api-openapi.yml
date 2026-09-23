@@ -54,15 +54,6 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   schemas:
-    Error:
-      type: object
-      properties:
-        Message:
-          type: string
-        Thread:
-          type: string
-        Code:
-          type: integer
     DataShape:
       type: object
       description: A ThingWorx data shape definition
@@ -99,6 +90,15 @@ components:
           type: integer
         isPrimaryKey:
           type: boolean
+    Error:
+      type: object
+      properties:
+        Message:
+          type: string
+        Thread:
+          type: string
+        Code:
+          type: integer
   securitySchemes:
     appKey:
       type: apiKey

@@ -1,32 +1,31 @@
 {
   "provider": "ptc-thingworx",
   "sources": [
-    "ptc-thingworx-datashapes-api-openapi.yml",
-    "ptc-thingworx-events-api-openapi.yml",
-    "ptc-thingworx-properties-api-openapi.yml",
-    "ptc-thingworx-things-api-openapi.yml",
-    "ptc-thingworx-thingtemplates-api-openapi.yml",
-    "ptc-thingworx-valuestreams-api-openapi.yml"
+    "_original/ptc-thingworx-rest-openapi.yml"
   ],
   "outputs": [
     "ptc-thingworx-datashapes-api-openapi.yml",
     "ptc-thingworx-events-api-openapi.yml",
     "ptc-thingworx-properties-api-openapi.yml",
-    "ptc-thingworx-things-api-openapi.yml",
     "ptc-thingworx-thingtemplates-api-openapi.yml",
+    "ptc-thingworx-things-api-openapi.yml",
     "ptc-thingworx-valuestreams-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
   "notes": [
-    "ptc-thingworx-datashapes-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "ptc-thingworx-events-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "ptc-thingworx-properties-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "ptc-thingworx-things-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "ptc-thingworx-thingtemplates-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "ptc-thingworx-valuestreams-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "ptc-thingworx-rest-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "ptc-thingworx-rest-openapi.yml: tagged paths POST /Things/{thingName}/Services/{serviceName} -> Things",
     "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "ptc-thingworx-datashapes-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "ptc-thingworx-events-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "ptc-thingworx-properties-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "ptc-thingworx-things-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "ptc-thingworx-thingtemplates-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "ptc-thingworx-valuestreams-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

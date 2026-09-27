@@ -83,25 +83,42 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  parameters:
+    ThingName:
+      name: thingName
+      in: path
+      required: true
+      description: ThingWorx thing name
+      schema:
+        type: string
+    PropertyName:
+      name: propertyName
+      in: path
+      required: true
+      description: ThingWorx property name
+      schema:
+        type: string
   schemas:
-    PropertyValue:
+    Error:
       type: object
-      description: A thing property current value
       properties:
+        Message:
+          type: string
+        Thread:
+          type: string
+        Code:
+          type: integer
+    InfoTable:
+      type: object
+      description: ThingWorx InfoTable - the universal tabular data container
+      properties:
+        dataShape:
+          $ref: '#/components/schemas/DataShape'
         rows:
           type: array
           items:
             type: object
-            properties:
-              value:
-                description: The property value (type depends on base type)
-              timestamp:
-                type: integer
-                format: int64
-                description: Value timestamp (epoch milliseconds)
-              quality:
-                type: string
-                description: Quality string (GOOD, BAD, etc.)
+            additionalProperties: true
     FieldDefinition:
       type: object
       properties:
@@ -126,17 +143,30 @@ components:
           type: integer
         isPrimaryKey:
           type: boolean
-    InfoTable:
+    PropertyValue:
       type: object
-      description: ThingWorx InfoTable - the universal tabular data container
+      description: A thing property current value
       properties:
-        dataShape:
-          $ref: '#/components/schemas/DataShape'
         rows:
           type: array
           items:
             type: object
-            additionalProperties: true
+            properties:
+              value:
+                description: The property value (type depends on base type)
+              timestamp:
+                type: integer
+                format: int64
+                description: Value timestamp (epoch milliseconds)
+              quality:
+                type: string
+                description: Quality string (GOOD, BAD, etc.)
+    PropertySetRequest:
+      type: object
+      description: Request body for setting a property value
+      properties:
+        value:
+          description: New property value (type must match property base type)
     DataShape:
       type: object
       description: A ThingWorx data shape definition
@@ -149,45 +179,15 @@ components:
           type: object
           additionalProperties:
             $ref: '#/components/schemas/FieldDefinition'
-    Error:
-      type: object
-      properties:
-        Message:
-          type: string
-        Thread:
-          type: string
-        Code:
-          type: integer
-    PropertySetRequest:
-      type: object
-      description: Request body for setting a property value
-      properties:
-        value:
-          description: New property value (type must match property base type)
-  parameters:
-    ThingName:
-      name: thingName
-      in: path
-      required: true
-      description: ThingWorx thing name
-      schema:
-        type: string
-    PropertyName:
-      name: propertyName
-      in: path
-      required: true
-      description: ThingWorx property name
-      schema:
-        type: string
   responses:
-    NotFound:
-      description: Thing, property, or service not found
+    BadRequest:
+      description: Invalid request parameters
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request parameters
+    NotFound:
+      description: Thing, property, or service not found
       content:
         application/json:
           schema:

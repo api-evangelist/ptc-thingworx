@@ -111,84 +111,15 @@ paths:
         '500':
           $ref: '#/components/responses/ServerError'
 components:
-  responses:
-    Unauthorized:
-      description: Authentication required or invalid
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    ServerError:
-      description: Internal server or service execution error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Thing, property, or service not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+  parameters:
+    ThingName:
+      name: thingName
+      in: path
+      required: true
+      description: ThingWorx thing name
+      schema:
+        type: string
   schemas:
-    ServiceResult:
-      type: object
-      description: ThingWorx service execution result
-      properties:
-        rows:
-          type: array
-          items:
-            type: object
-            additionalProperties: true
-        dataShape:
-          $ref: '#/components/schemas/DataShape'
-    FieldDefinition:
-      type: object
-      properties:
-        name:
-          type: string
-        description:
-          type: string
-        baseType:
-          type: string
-          enum:
-          - STRING
-          - INTEGER
-          - LONG
-          - NUMBER
-          - BOOLEAN
-          - DATETIME
-          - JSON
-          - INFOTABLE
-          - THINGNAME
-          - LOCATION
-        ordinal:
-          type: integer
-        isPrimaryKey:
-          type: boolean
-    InfoTable:
-      type: object
-      description: ThingWorx InfoTable - the universal tabular data container
-      properties:
-        dataShape:
-          $ref: '#/components/schemas/DataShape'
-        rows:
-          type: array
-          items:
-            type: object
-            additionalProperties: true
-    DataShape:
-      type: object
-      description: A ThingWorx data shape definition
-      properties:
-        name:
-          type: string
-        description:
-          type: string
-        fieldDefinitions:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/FieldDefinition'
     Error:
       type: object
       properties:
@@ -234,14 +165,83 @@ components:
           description: External device identifier
         projectName:
           type: string
-  parameters:
-    ThingName:
-      name: thingName
-      in: path
-      required: true
-      description: ThingWorx thing name
-      schema:
-        type: string
+    InfoTable:
+      type: object
+      description: ThingWorx InfoTable - the universal tabular data container
+      properties:
+        dataShape:
+          $ref: '#/components/schemas/DataShape'
+        rows:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+    FieldDefinition:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        baseType:
+          type: string
+          enum:
+          - STRING
+          - INTEGER
+          - LONG
+          - NUMBER
+          - BOOLEAN
+          - DATETIME
+          - JSON
+          - INFOTABLE
+          - THINGNAME
+          - LOCATION
+        ordinal:
+          type: integer
+        isPrimaryKey:
+          type: boolean
+    ServiceResult:
+      type: object
+      description: ThingWorx service execution result
+      properties:
+        rows:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        dataShape:
+          $ref: '#/components/schemas/DataShape'
+    DataShape:
+      type: object
+      description: A ThingWorx data shape definition
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        fieldDefinitions:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/FieldDefinition'
+  responses:
+    NotFound:
+      description: Thing, property, or service not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ServerError:
+      description: Internal server or service execution error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     appKey:
       type: apiKey

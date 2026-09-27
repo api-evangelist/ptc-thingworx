@@ -46,14 +46,27 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    Unauthorized:
-      description: Authentication required or invalid
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
+    Error:
+      type: object
+      properties:
+        Message:
+          type: string
+        Thread:
+          type: string
+        Code:
+          type: integer
+    InfoTable:
+      type: object
+      description: ThingWorx InfoTable - the universal tabular data container
+      properties:
+        dataShape:
+          $ref: '#/components/schemas/DataShape'
+        rows:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
     FieldDefinition:
       type: object
       properties:
@@ -78,17 +91,6 @@ components:
           type: integer
         isPrimaryKey:
           type: boolean
-    InfoTable:
-      type: object
-      description: ThingWorx InfoTable - the universal tabular data container
-      properties:
-        dataShape:
-          $ref: '#/components/schemas/DataShape'
-        rows:
-          type: array
-          items:
-            type: object
-            additionalProperties: true
     DataShape:
       type: object
       description: A ThingWorx data shape definition
@@ -101,15 +103,13 @@ components:
           type: object
           additionalProperties:
             $ref: '#/components/schemas/FieldDefinition'
-    Error:
-      type: object
-      properties:
-        Message:
-          type: string
-        Thread:
-          type: string
-        Code:
-          type: integer
+  responses:
+    Unauthorized:
+      description: Authentication required or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     appKey:
       type: apiKey

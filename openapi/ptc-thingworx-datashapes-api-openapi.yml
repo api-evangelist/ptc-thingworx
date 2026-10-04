@@ -59,15 +59,6 @@ components:
           type: object
           additionalProperties:
             $ref: '#/components/schemas/FieldDefinition'
-    Error:
-      type: object
-      properties:
-        Message:
-          type: string
-        Thread:
-          type: string
-        Code:
-          type: integer
     FieldDefinition:
       type: object
       properties:
@@ -92,6 +83,15 @@ components:
           type: integer
         isPrimaryKey:
           type: boolean
+    Error:
+      type: object
+      properties:
+        Message:
+          type: string
+        Thread:
+          type: string
+        Code:
+          type: integer
   responses:
     NotFound:
       description: Thing, property, or service not found

@@ -96,6 +96,32 @@ components:
           type: object
           additionalProperties:
             $ref: '#/components/schemas/FieldDefinition'
+    Error:
+      type: object
+      properties:
+        Message:
+          type: string
+        Thread:
+          type: string
+        Code:
+          type: integer
+    InfoTable:
+      type: object
+      description: ThingWorx InfoTable - the universal tabular data container
+      properties:
+        dataShape:
+          $ref: '#/components/schemas/DataShape'
+        rows:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+    PropertySetRequest:
+      type: object
+      description: Request body for setting a property value
+      properties:
+        value:
+          description: New property value (type must match property base type)
     FieldDefinition:
       type: object
       properties:
@@ -120,12 +146,6 @@ components:
           type: integer
         isPrimaryKey:
           type: boolean
-    PropertySetRequest:
-      type: object
-      description: Request body for setting a property value
-      properties:
-        value:
-          description: New property value (type must match property base type)
     PropertyValue:
       type: object
       description: A thing property current value
@@ -144,41 +164,6 @@ components:
               quality:
                 type: string
                 description: Quality string (GOOD, BAD, etc.)
-    Error:
-      type: object
-      properties:
-        Message:
-          type: string
-        Thread:
-          type: string
-        Code:
-          type: integer
-    InfoTable:
-      type: object
-      description: ThingWorx InfoTable - the universal tabular data container
-      properties:
-        dataShape:
-          $ref: '#/components/schemas/DataShape'
-        rows:
-          type: array
-          items:
-            type: object
-            additionalProperties: true
-  parameters:
-    PropertyName:
-      name: propertyName
-      in: path
-      required: true
-      description: ThingWorx property name
-      schema:
-        type: string
-    ThingName:
-      name: thingName
-      in: path
-      required: true
-      description: ThingWorx thing name
-      schema:
-        type: string
   responses:
     BadRequest:
       description: Invalid request parameters
@@ -192,6 +177,21 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  parameters:
+    ThingName:
+      name: thingName
+      in: path
+      required: true
+      description: ThingWorx thing name
+      schema:
+        type: string
+    PropertyName:
+      name: propertyName
+      in: path
+      required: true
+      description: ThingWorx property name
+      schema:
+        type: string
   securitySchemes:
     appKey:
       type: apiKey

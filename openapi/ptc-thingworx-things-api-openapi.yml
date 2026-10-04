@@ -124,6 +124,37 @@ components:
           type: object
           additionalProperties:
             $ref: '#/components/schemas/FieldDefinition'
+    Error:
+      type: object
+      properties:
+        Message:
+          type: string
+        Thread:
+          type: string
+        Code:
+          type: integer
+    InfoTable:
+      type: object
+      description: ThingWorx InfoTable - the universal tabular data container
+      properties:
+        dataShape:
+          $ref: '#/components/schemas/DataShape'
+        rows:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+    ServiceResult:
+      type: object
+      description: ThingWorx service execution result
+      properties:
+        rows:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        dataShape:
+          $ref: '#/components/schemas/DataShape'
     FieldDefinition:
       type: object
       properties:
@@ -148,17 +179,6 @@ components:
           type: integer
         isPrimaryKey:
           type: boolean
-    ServiceResult:
-      type: object
-      description: ThingWorx service execution result
-      properties:
-        rows:
-          type: array
-          items:
-            type: object
-            additionalProperties: true
-        dataShape:
-          $ref: '#/components/schemas/DataShape'
     Thing:
       type: object
       description: A ThingWorx thing (digital twin instance)
@@ -195,35 +215,23 @@ components:
           description: External device identifier
         projectName:
           type: string
-    Error:
-      type: object
-      properties:
-        Message:
-          type: string
-        Thread:
-          type: string
-        Code:
-          type: integer
-    InfoTable:
-      type: object
-      description: ThingWorx InfoTable - the universal tabular data container
-      properties:
-        dataShape:
-          $ref: '#/components/schemas/DataShape'
-        rows:
-          type: array
-          items:
-            type: object
-            additionalProperties: true
+  parameters:
+    ThingName:
+      name: thingName
+      in: path
+      required: true
+      description: ThingWorx thing name
+      schema:
+        type: string
   responses:
-    ServerError:
-      description: Internal server or service execution error
+    Unauthorized:
+      description: Authentication required or invalid
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication required or invalid
+    ServerError:
+      description: Internal server or service execution error
       content:
         application/json:
           schema:
@@ -234,14 +242,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    ThingName:
-      name: thingName
-      in: path
-      required: true
-      description: ThingWorx thing name
-      schema:
-        type: string
   securitySchemes:
     appKey:
       type: apiKey

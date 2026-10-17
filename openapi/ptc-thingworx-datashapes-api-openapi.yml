@@ -47,18 +47,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    DataShape:
-      type: object
-      description: A ThingWorx data shape definition
-      properties:
-        name:
-          type: string
-        description:
-          type: string
-        fieldDefinitions:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/FieldDefinition'
     FieldDefinition:
       type: object
       properties:
@@ -92,6 +80,18 @@ components:
           type: string
         Code:
           type: integer
+    DataShape:
+      type: object
+      description: A ThingWorx data shape definition
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        fieldDefinitions:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/FieldDefinition'
   responses:
     NotFound:
       description: Thing, property, or service not found

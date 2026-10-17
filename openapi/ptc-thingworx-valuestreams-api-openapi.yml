@@ -66,6 +66,30 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
+    FieldDefinition:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        baseType:
+          type: string
+          enum:
+          - STRING
+          - INTEGER
+          - LONG
+          - NUMBER
+          - BOOLEAN
+          - DATETIME
+          - JSON
+          - INFOTABLE
+          - THINGNAME
+          - LOCATION
+        ordinal:
+          type: integer
+        isPrimaryKey:
+          type: boolean
     DataShape:
       type: object
       description: A ThingWorx data shape definition
@@ -98,43 +122,19 @@ components:
           items:
             type: object
             additionalProperties: true
-    FieldDefinition:
-      type: object
-      properties:
-        name:
-          type: string
-        description:
-          type: string
-        baseType:
-          type: string
-          enum:
-          - STRING
-          - INTEGER
-          - LONG
-          - NUMBER
-          - BOOLEAN
-          - DATETIME
-          - JSON
-          - INFOTABLE
-          - THINGNAME
-          - LOCATION
-        ordinal:
-          type: integer
-        isPrimaryKey:
-          type: boolean
   parameters:
-    ThingName:
-      name: thingName
-      in: path
-      required: true
-      description: ThingWorx thing name
-      schema:
-        type: string
     PropertyName:
       name: propertyName
       in: path
       required: true
       description: ThingWorx property name
+      schema:
+        type: string
+    ThingName:
+      name: thingName
+      in: path
+      required: true
+      description: ThingWorx thing name
       schema:
         type: string
   responses:
